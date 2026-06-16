@@ -3,7 +3,11 @@
 import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, BotMessageSquare, Briefcase, Code, GraduationCap, Lightbulb, MessageCircle, Send, Sparkles, User } from "lucide-react"
+import { ArrowRight, Bot, BotMessageSquare, Briefcase, Code, GraduationCap, Lightbulb, MessageCircle, Send, Sparkles, User } from "lucide-react"
+import { useChat } from "@/hooks/useChat"
+
+import Image from 'next/image'
+import SufiqLogo from '@/public/sufiq_logo.png'
 
 interface Message {
   id: string
@@ -73,13 +77,9 @@ export function Hero() {
     inputRef.current?.focus()
   }
 
-  const responses: Record<string, string> = {
-    "skills": "I specialize in full-stack development with React, Next.js, TypeScript, and Python. I'm also experienced in AI/ML with TensorFlow and PyTorch, cloud services (AWS, Vercel), and database technologies like PostgreSQL and MongoDB.",
-    "experience": "I have 5+ years of experience building web applications and AI solutions. I've worked with startups and enterprises, leading teams to deliver scalable products. Currently, I focus on building intelligent applications that leverage the latest in AI technology.",
-    "projects": "Some of my notable projects include an AI content generator (SaaS), a neural style transfer app, real-time analytics dashboards, and various e-commerce solutions. Each project showcases different aspects of my technical abilities.",
-    "problem": "I approach problems by first understanding the core issue, then breaking it down into smaller, manageable tasks. I believe in iterative development, testing early, and always keeping the end-user in mind. Communication and collaboration are key parts of my process.",
-    "default": "Thanks for your question! I'm Alex's AI assistant. I can tell you about his skills, experience, projects, and approach to development. What would you like to know?"
-  }
+  const chat = useChat()
+
+
 
   const initialPrompts = [
     { id: 'skills', icon: Code, text: "What are your main skills?" },
@@ -89,6 +89,10 @@ export function Hero() {
 
   const [suggestedPrompts, setSuggestedPrompts] = useState(initialPrompts)
 
+
+  // BACKEND FASTAPI (CHATBOT ) INTEGRATION
+  // const {messages, isTyping, input, setInput, handleSend} = useChat()
+
   const handlePromptClick = async (
     promptId: string,
     promptText: string
@@ -97,63 +101,10 @@ export function Hero() {
       prev.filter((prompt) => prompt.id !== promptId)
     )
 
-    await handleSend(promptText)
+    await chat.handleSend(promptText)
   }
 
-  function getResponse(input: string): string {
-    const lower = input.toLowerCase()
-    if (lower.includes("skill") || lower.includes("technology") || lower.includes("tech stack")) {
-      return responses.skills
-    }
-    if (lower.includes("experience") || lower.includes("work") || lower.includes("career")) {
-      return responses.experience
-    }
-    if (lower.includes("project") || lower.includes("portfolio") || lower.includes("built")) {
-      return responses.projects
-    }
-    if (lower.includes("problem") || lower.includes("approach") || lower.includes("process") || lower.includes("solve")) {
-      return responses.problem
-    }
-    return responses.default
-  }
-
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "1",
-      role: "assistant",
-      content: "Hi! I'm Alex's AI assistant. Feel free to ask me anything about his skills, experience, or projects. How can I help you today?"
-    }
-  ])
-  const [input, setInput] = useState("")
-  const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-
-  const handleSend = async (text?: string) => {
-    const messageText = text || input
-    if (!messageText.trim()) return
-
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      role: "user",
-      content: messageText
-    }
-
-    setMessages(prev => [...prev, userMessage])
-    setInput("")
-    setIsTyping(true)
-
-    // Simulate AI response delay
-    await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000))
-
-    const assistantMessage: Message = {
-      id: (Date.now() + 1).toString(),
-      role: "assistant",
-      content: getResponse(messageText)
-    }
-
-    setIsTyping(false)
-    setMessages(prev => [...prev, assistantMessage])
-  }
 
 
   return (
@@ -181,18 +132,19 @@ export function Hero() {
               ref={titleRef}
               className="text-3xl md:text-6xl lg:text-7xl font-bold leading-tight text-balance text-foreground"
             >
-              <span className="gradient-text">GenAI & Full Stack</span>
+              <span className="gradient-text">Md Sufiyan Ali</span>
               <br />
-              <p>Developer Portfolio</p>
+              <p>GenAI Engineer &  Full Stack Developer</p>
             </h1>
 
             <p
               ref={subtitleRef}
               className="text-lg md:text-xl text-muted-foreground max-w-lg text-pretty"
             >
-              Building <span className="gradient-text">AI chatbots</span>, <span className="gradient-text">RAG applications</span>, and scalable web
-              platforms using React, Next.js, FastAPI, Django, and
-              LangChain.
+              BCA student and aspiring <span className="gradient-text">AI Engineer</span> focused on
+              building <span className="gradient-text">Intelligent Chatbots</span>, 
+              and <span className="gradient-text">RAG systems</span>,  
+              <span className="gradient-text"> Modern Full-Stack Applications.</span>
             </p>
 
             <div ref={buttonsRef} className="flex flex-wrap gap-4">
@@ -236,10 +188,11 @@ export function Hero() {
             {/* Chat Header */}
             <div className="flex items-center gap-3 p-4 border-b border-border">
               <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-primary" />
+                <Bot  
+                className="w-6 h-5 text-primary" />
               </div>
               <div>
-                <div className="font-semibold text-foreground">AI Assistant</div>
+                <div className="font-semibold text-foreground"><span className="gradient-text">SufiQ</span> - AI Portfolio Guide</div>
                 <div className="text-sm text-muted-foreground flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-green-500" />
                   Online
@@ -249,7 +202,7 @@ export function Hero() {
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {messages.map((message) => (
+              {chat.messages.map((message) => (
                 <div
                   key={message.id}
                   className={`flex gap-3 ${message.role === "user" ? "flex-row-reverse" : ""}`}
@@ -263,7 +216,7 @@ export function Hero() {
                     {message.role === "user" ? (
                       <User className="w-4 h-4 text-secondary-foreground" />
                     ) : (
-                      <Sparkles className="w-4 h-4 text-primary" />
+                      <Bot className="w-6 h-5 text-primary" />
                     )}
                   </div>
                   <div
@@ -277,7 +230,7 @@ export function Hero() {
                 </div>
               ))}
 
-              {isTyping && (
+              {chat.isTyping && (
                 <div className="flex gap-3">
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                     <Sparkles className="w-4 h-4 text-primary" />
@@ -321,15 +274,16 @@ export function Hero() {
               <form
                 onSubmit={(e) => {
                   e.preventDefault()
-                  handleSend()
+                  chat.handleSend()
                 }}
                 className="flex gap-2"
               >
                 <input
                   ref={inputRef}
                   type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
+                  value={chat.input}
+                  disabled={chat.isTyping}
+                  onChange={(e) => chat.setInput(e.target.value)}
                   placeholder="Ask me anything..."
                   className="flex-1 bg-secondary rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
                 />
@@ -337,7 +291,7 @@ export function Hero() {
                   type="submit"
                   size="icon"
                   className="bg-primary hover:bg-primary/90 rounded-xl"
-                  disabled={!input.trim() || isTyping}
+                  disabled={!chat.input.trim() || chat.isTyping}
                 >
                   <Send className="w-4 h-4" />
                   <span className="sr-only">Send message</span>

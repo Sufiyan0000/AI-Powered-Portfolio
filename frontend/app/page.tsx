@@ -8,20 +8,23 @@ import { Experience } from "@/components/portfolio/experience"
 import { Contact } from "@/components/portfolio/contact"
 import { Footer } from "@/components/portfolio/footer"
 import { AIFab } from "@/components/portfolio/ai-fab"
+import { Certifications } from '@/components/portfolio/certifications'
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-background">
-      <Navbar />
-      <Hero />
-      <About />
-      <Projects />
-      <Skills />
-      <Chatbot />
-      <Experience />
-      <Contact />
-      <Footer />
-      <AIFab />
+      
+        <Navbar />
+        <Hero />
+        <About />
+        <Projects />
+        <Skills />
+        <Chatbot />
+        <Certifications />
+        {/* <Experience /> */}
+        <Contact />
+        <Footer />
+        <AIFab />
     </main>
   )
 }

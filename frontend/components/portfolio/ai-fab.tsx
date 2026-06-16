@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { MessageCircle, X, Send, Sparkles, User, Minimize2 } from "lucide-react"
 import { gsap } from "gsap"
+import { useChat } from "@/hooks/useChat"
 
 interface Message {
   id: string
@@ -11,41 +12,19 @@ interface Message {
   content: string
 }
 
-const responses: Record<string, string> = {
-  skills: "I specialize in React, Next.js, TypeScript, Python, and AI/ML technologies. My expertise spans frontend, backend, and machine learning applications.",
-  experience: "I have 5+ years of experience building web applications and AI solutions for startups and enterprises.",
-  projects: "Check out my projects section! I've built AI content generators, analytics dashboards, and e-commerce platforms.",
-  contact: "You can reach me at hello@alexchen.dev or connect with me on LinkedIn and GitHub!",
-  default: "Hi! I'm Alex's AI assistant. Ask me about his skills, experience, or projects!"
-}
-
-function getResponse(input: string): string {
-  const lower = input.toLowerCase()
-  if (lower.includes("skill") || lower.includes("tech")) return responses.skills
-  if (lower.includes("experience") || lower.includes("work")) return responses.experience
-  if (lower.includes("project")) return responses.projects
-  if (lower.includes("contact") || lower.includes("email") || lower.includes("reach")) return responses.contact
-  return responses.default
-}
 
 export function AIFab() {
+
+  const chat = useChat()
+
   const [isOpen, setIsOpen] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "1",
-      role: "assistant",
-      content: "Hi! I'm Alex's AI assistant. How can I help you today?"
-    }
-  ])
-  const [input, setInput] = useState("")
-  const [isTyping, setIsTyping] = useState(false)
   const panelRef = useRef<HTMLDivElement>(null)
   const fabRef = useRef<HTMLButtonElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }, [messages])
+  }, [chat.messages])
 
   useEffect(() => {
     if (isOpen && panelRef.current) {
@@ -65,31 +44,6 @@ export function AIFab() {
         .to(fabRef.current, { scale: 1, duration: 0.3, ease: "power2.in" })
     }
   }, [isOpen])
-
-  const handleSend = async () => {
-    if (!input.trim()) return
-
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      role: "user",
-      content: input
-    }
-
-    setMessages(prev => [...prev, userMessage])
-    setInput("")
-    setIsTyping(true)
-
-    await new Promise(resolve => setTimeout(resolve, 800 + Math.random() * 800))
-
-    const assistantMessage: Message = {
-      id: (Date.now() + 1).toString(),
-      role: "assistant",
-      content: getResponse(input)
-    }
-
-    setIsTyping(false)
-    setMessages(prev => [...prev, assistantMessage])
-  }
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -125,7 +79,7 @@ export function AIFab() {
 
           {/* Messages */}
           <div className="h-72 overflow-y-auto p-4 space-y-3 bg-background">
-            {messages.map((message) => (
+            {chat.messages.map((message) => (
               <div
                 key={message.id}
                 className={`flex gap-2 ${message.role === "user" ? "flex-row-reverse" : ""}`}
@@ -153,7 +107,7 @@ export function AIFab() {
               </div>
             ))}
 
-            {isTyping && (
+            {chat.isTyping && (
               <div className="flex gap-2">
                 <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
                   <Sparkles className="w-3 h-3 text-primary" />
@@ -174,14 +128,14 @@ export function AIFab() {
           <form
             onSubmit={(e) => {
               e.preventDefault()
-              handleSend()
+              chat.handleSend()
             }}
             className="p-3 border-t border-border flex gap-2 bg-background"
           >
             <input
               type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
+              value={chat.input}
+              onChange={(e) => chat.setInput(e.target.value)}
               placeholder="Type a message..."
               className="flex-1 bg-secondary rounded-xl px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
             />
@@ -189,7 +143,7 @@ export function AIFab() {
               type="submit"
               size="icon"
               className="bg-primary hover:bg-primary/90 rounded-xl"
-              disabled={!input.trim() || isTyping}
+              disabled={!chat.input.trim() || chat.isTyping}
             >
               <Send className="w-4 h-4" />
             </Button>

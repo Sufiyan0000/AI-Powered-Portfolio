@@ -1,98 +1,34 @@
-"use client"
+"use client";
 
-import { useState, useRef, useEffect } from "react"
-import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { Button } from "@/components/ui/button"
-import { 
-  Send, 
-  Sparkles, 
-  User, 
-  Code2, 
-  Briefcase, 
+import { useState, useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Button } from "@/components/ui/button";
+import {
+  Send,
+  Sparkles,
+  User,
+  Code2,
+  Briefcase,
   GraduationCap,
-  Lightbulb
-} from "lucide-react"
-import { sendMessage } from "@/api/chatApi"
-import { ChatMessage } from "@/types/chat"
+  Lightbulb,
+  Bot,
+} from "lucide-react";
+import { useChat } from "@/hooks/useChat";
 
-gsap.registerPlugin(ScrollTrigger)
-
+gsap.registerPlugin(ScrollTrigger);
 
 const suggestedPrompts = [
   { icon: Code2, text: "What are your main skills?" },
   { icon: Briefcase, text: "Tell me about your experience" },
   { icon: GraduationCap, text: "What projects have you worked on?" },
-  { icon: Lightbulb, text: "How do you approach problem-solving?" }
-]
+  { icon: Lightbulb, text: "How do you approach problem-solving?" },
+];
 
 export function Chatbot() {
-
-  const sectionRef = useRef<HTMLElement>(null)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
-  
-//  BACKEND CHATBOT(FASTAPI) CALL
-  const [messages, setMessages]= useState<ChatMessage[]>([
-    {
-      id: crypto.randomUUID(),
-      role: 'assistant',
-      content: "Hi! I'm Sufiyan's AI assistant. Feel free to ask me anything about his skills, experience, projects, or background."
-    }
-  ])
-  const [input, setInput] = useState("")
-  const [isTyping, setIsTyping] = useState(false)
-  
-  const handleSend = async (promptText?: string) => {
-    const messageText = promptText || input;
-    
-    if (!messageText.trim() || isTyping) return;
-    
-    const userMessage: ChatMessage = {
-      id: crypto.randomUUID(),
-      role: 'user',
-      content: messageText,
-    }
-
-    setMessages((prev) => [...prev, userMessage]);
-
-    if (!promptText){
-      setInput('');
-    }
-    
-    setIsTyping(true)
-
-    try{
-      const resp = await sendMessage({
-        message: messageText
-      });
-
-      console.log("Api Response: ", resp)
-      
-      const assistantMessage: ChatMessage = {
-        id: crypto.randomUUID(),
-        role: 'assistant',
-        content: resp.message
-      }
-      
-      setMessages((prev) => [...prev, assistantMessage])
-    } catch (error){
-      console.log(error)
-      
-      const errorMessage: ChatMessage = {
-        id: crypto.randomUUID(),
-        role: 'assistant',
-        content:  "Sorry, I'm having trouble connecting to the server right now.",
-      }
-
-      setMessages((prev) => [...prev, errorMessage])
-    }finally{
-      setIsTyping(false)
-    }
-  }
-
-
-  
-useEffect(() => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         ".chat-animate",
@@ -106,23 +42,26 @@ useEffect(() => {
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
-        }
-      )
-    }, sectionRef)
-    
-    return () => ctx.revert()
-  }, [])
+            toggleActions: "play none none reverse",
+          },
+        },
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  //  BACKEND CHATBOT(FASTAPI) CALL
+  const chat = useChat();
+
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
-    scrollToBottom()
-  }, [messages])
-
+    scrollToBottom();
+  }, [chat.messages]);
 
   return (
     <section
@@ -141,11 +80,10 @@ useEffect(() => {
             <span>AI-Powered</span>
           </div>
           <h2 className="chat-animate text-4xl md:text-5xl font-bold text-foreground">
-            Chat with My{" "}
-            <span className="gradient-text">AI Assistant</span>
+            Chat with <span className="gradient-text">SufiQ - AI Assistant</span>
           </h2>
           <p className="chat-animate text-muted-foreground text-lg">
-            Have questions? My AI assistant is here to help you learn more about 
+            Have questions? <span className="gradient-text">SufiQ</span> is here to help you learn more about
             my skills, experience, and projects.
           </p>
         </div>
@@ -156,11 +94,11 @@ useEffect(() => {
             <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider">
               Suggested Questions
             </h3>
-            <div className="space-y-2">
+            <div className="mx-10 md:mx-0 space-y-2">
               {suggestedPrompts.map((prompt, index) => (
                 <button
                   key={index}
-                  onClick={() => handleSend(prompt.text)}
+                  onClick={() => chat.handleSend(prompt.text)}
                   className="w-full glass rounded-xl p-4 text-left card-hover group"
                 >
                   <prompt.icon className="w-5 h-5 text-primary mb-2 group-hover:scale-110 transition-transform" />
@@ -175,10 +113,12 @@ useEffect(() => {
             {/* Chat Header */}
             <div className="flex items-center gap-3 p-4 border-b border-border">
               <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-primary" />
+                <Bot className="w-6 h-6 text-primary" />
               </div>
               <div>
-                <div className="font-semibold text-foreground">AI Assistant</div>
+                <div className="font-semibold text-foreground">
+                  SufiQ - AI Portfolio Guide
+                </div>
                 <div className="text-sm text-muted-foreground flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-green-500" />
                   Online
@@ -188,22 +128,20 @@ useEffect(() => {
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {messages.map((message) => (
+              {chat.messages.map((message) => (
                 <div
                   key={message.id}
                   className={`flex gap-3 ${message.role === "user" ? "flex-row-reverse" : ""}`}
                 >
                   <div
                     className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
-                      message.role === "user"
-                        ? "bg-secondary"
-                        : "bg-primary/10"
+                      message.role === "user" ? "bg-secondary" : "bg-primary/10"
                     }`}
                   >
                     {message.role === "user" ? (
-                      <User className="w-4 h-4 text-secondary-foreground" />
+                      <User className="w-5 h-5 text-secondary-foreground" />
                     ) : (
-                      <Sparkles className="w-4 h-4 text-primary" />
+                      <Bot className="w-5 h-5 text-primary" />
                     )}
                   </div>
                   <div
@@ -218,16 +156,25 @@ useEffect(() => {
                 </div>
               ))}
 
-              {isTyping && (
+              {chat.isTyping && (
                 <div className="flex gap-3">
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                     <Sparkles className="w-4 h-4 text-primary" />
                   </div>
                   <div className="bg-secondary rounded-xl rounded-tl-none px-4 py-3">
                     <div className="flex gap-1">
-                      <span className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: "0ms" }} />
-                      <span className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: "150ms" }} />
-                      <span className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: "300ms" }} />
+                      <span
+                        className="w-2 h-2 rounded-full bg-primary animate-bounce"
+                        style={{ animationDelay: "0ms" }}
+                      />
+                      <span
+                        className="w-2 h-2 rounded-full bg-primary animate-bounce"
+                        style={{ animationDelay: "150ms" }}
+                      />
+                      <span
+                        className="w-2 h-2 rounded-full bg-primary animate-bounce"
+                        style={{ animationDelay: "300ms" }}
+                      />
                     </div>
                   </div>
                 </div>
@@ -239,16 +186,16 @@ useEffect(() => {
             <div className="p-4 border-t border-border">
               <form
                 onSubmit={(e) => {
-                  e.preventDefault()
-                  handleSend()
+                  e.preventDefault();
+                  chat.handleSend();
                 }}
                 className="flex gap-2"
               >
                 <input
                   type="text"
-                  value={input}
-                  // disabled= {isTyping}
-                  onChange={(e) => setInput(e.target.value)}
+                  value={chat.input}
+                  disabled={chat.isTyping}
+                  onChange={(e) => chat.setInput(e.target.value)}
                   placeholder="Ask me anything..."
                   className="flex-1 bg-secondary rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
                 />
@@ -256,7 +203,7 @@ useEffect(() => {
                   type="submit"
                   size="icon"
                   className="bg-primary hover:bg-primary/90 rounded-xl"
-                  disabled={!input.trim() || isTyping}
+                  disabled={!chat.input.trim() || chat.isTyping}
                 >
                   <Send className="w-4 h-4" />
                   <span className="sr-only">Send message</span>
@@ -267,5 +214,5 @@ useEffect(() => {
         </div>
       </div>
     </section>
-  )
+  );
 }
