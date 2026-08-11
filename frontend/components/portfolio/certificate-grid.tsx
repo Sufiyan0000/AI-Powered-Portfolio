@@ -1,7 +1,7 @@
 "use client"
 
 import { CertificateCard } from "./certificate-card"
-import { Certificate } from "./certifications-data"
+import { Certificate, certificates } from "@/data/certifications-data"
 
 interface CertificateGridProps {
   certificates: Certificate[]
@@ -13,7 +13,7 @@ export function CertificateGrid({
   onViewPdf,
 }: CertificateGridProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[320px] gap-4 mx-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[360px] lg:auto-rows-[320px] gap-4 mx-10">
       {certificates.map((cert, index) => {
         let sizeClasses = ""
 

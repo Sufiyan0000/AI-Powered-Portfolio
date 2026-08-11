@@ -55,7 +55,7 @@ export function Certifications() {
         <div className="cert-header text-center max-w-2xl mx-auto mb-12 space-y-4">
           <p className="text-primary font-medium">Professional Development</p>
           <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-            <span className="gradient-text">Certifications</span>
+            <span className="">Certifications</span>
           </h2>
           <p className="text-muted-foreground text-lg">
             Professional certifications and continuous learning across AI, Software Development, Cybersecurity, Frontend Development, and Programming.
