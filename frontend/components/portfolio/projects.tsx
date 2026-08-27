@@ -6,65 +6,76 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Github, ArrowUpRight } from "lucide-react"
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger)
 
 const projects = [
   {
-    title: "AI Content Generator",
-    description: "Full-stack SaaS platform that generates marketing content using GPT-4. Features real-time collaboration and analytics dashboard.",
-    image: "/project-1.jpg",
-    tags: ["Next.js", "OpenAI", "Prisma", "Tailwind"],
+    title: "DocAnalyzer",
+    description:
+  "AI-powered document analysis platform leveraging RAG, LangChain, OpenAI GPT, ChromaDB, and semantic search to answer questions from uploaded PDF documents.",
+    image: "",
+    tags: [
+      "Python",
+      "FastAPI",
+      "LangChain",
+      "OpenAI",
+      "ChromaDB",
+      "Streamlit",
+    ],
     liveUrl: "#",
     githubUrl: "#",
-    featured: true
+    featured: true,
   },
   {
-    title: "Neural Style Transfer",
-    description: "Deep learning application that applies artistic styles to images using convolutional neural networks.",
+    title: "BookMyShow",
+    description:
+  "Full-stack movie ticket booking application featuring movie listings, seat selection, secure booking workflows, and RESTful APIs with a responsive user interface.",
     image: "/project-2.jpg",
-    tags: ["Python", "PyTorch", "FastAPI", "React"],
+    tags: [
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Django",
+      "REST API",
+    ],
     liveUrl: "#",
     githubUrl: "#",
-    featured: true
+    featured: true,
   },
   {
-    title: "Real-time Analytics",
-    description: "Dashboard for monitoring business metrics with live updates, custom visualizations, and AI-powered insights.",
-    image: "/project-3.jpg",
-    tags: ["TypeScript", "D3.js", "WebSockets", "PostgreSQL"],
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: true
-  },
-  {
-    title: "Smart Task Manager",
-    description: "Productivity app with AI-powered task prioritization, natural language processing, and smart scheduling.",
-    image: "/project-4.jpg",
-    tags: ["React Native", "Node.js", "MongoDB", "NLP"],
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: false
-  },
-  {
-    title: "E-commerce Platform",
-    description: "Headless commerce solution with personalized recommendations and automated inventory management.",
-    image: "/project-5.jpg",
-    tags: ["Next.js", "Shopify", "GraphQL", "Stripe"],
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: false
-  },
-  {
-    title: "Voice Assistant API",
-    description: "Conversational AI API supporting multiple languages with emotion detection and context awareness.",
-    image: "/project-6.jpg",
-    tags: ["Python", "TensorFlow", "gRPC", "Docker"],
-    liveUrl: "#",
-    githubUrl: "#",
-    featured: false
-  }
-]
+  title: "StrideX",
+  description:
+    "Full-stack Nike-inspired e-commerce application with modern UI, API integration, reusable components, and scalable architecture for a seamless shopping experience.",
+  image: "/project-3.jpg",
+  tags: [
+    "Next.js",
+    "Tailwind CSS",
+    "Django",
+    "Django REST Framework",
+    "Context API",
+  ],
+  liveUrl: "#",
+  githubUrl: "#",
+  featured: true,
+},
+{
+  title: "Villa Agency",
+  description:
+    "Modern and fully responsive real estate website featuring reusable UI components, property listings, and a clean user experience built with React and Tailwind CSS.",
+  image: "/projects/Villa.png",
+  tags: [
+    "React",
+    "Tailwind CSS",
+    "JavaScript",
+    "Responsive Design",
+  ],
+  liveUrl: "#",
+  githubUrl: "#",
+  featured: false,
+},
+];
 
 export function Projects() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -150,45 +161,57 @@ export function Projects() {
             >
               <div className="glass rounded-2xl overflow-hidden h-full flex flex-col card-hover">
                 {/* Image */}
-                <div className="relative aspect-video h-[200px] md:h-auto overflow-hidden bg-gradient-to-br from-primary/10 via-secondary to-primary/5">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-4xl font-bold text-foreground/10">
-                      {project.title.charAt(0)}
-                    </span>
-                  </div>
-                  
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-background/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                    <Button
-                      size="icon"
-                      variant="outline"
-                      className="rounded-full border-border hover:border-primary hover:bg-primary/10"
-                      asChild
-                    >
-                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="w-5 h-5" />
-                        <span className="sr-only">View live demo</span>
-                      </a>
-                    </Button>
-                    <Button
-                      size="icon"
-                      variant="outline"
-                      className="rounded-full border-border hover:border-primary hover:bg-primary/10"
-                      asChild
-                    >
-                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                        <Github className="w-5 h-5" />
-                        <span className="sr-only">View source code</span>
-                      </a>
-                    </Button>
-                  </div>
+                <div className="relative aspect-video h-[200px] md:h-auto overflow-hidden bg-muted">
+  <Image
+    src={project.image}
+    alt={project.title}
+    fill
+    className="object-cover transition-transform duration-300 group-hover:scale-105"
+    sizes="(max-width: 768px) 100vw, 50vw"
+    priority={project.featured}
+  />
 
-                  {project.featured && (
-                    <div className="absolute top-4 left-4 bg-white border border-border rounded-full px-3 py-1 text-xs font-medium shadow-sm">
-                      Featured
-                    </div>
-                  )}
-                </div>
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-background/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+    <Button
+      size="icon"
+      variant="outline"
+      className="rounded-full border-border hover:border-primary hover:bg-primary/10"
+      asChild
+    >
+      <a
+        href={project.liveUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <ExternalLink className="w-5 h-5" />
+        <span className="sr-only">View live demo</span>
+      </a>
+    </Button>
+
+    <Button
+      size="icon"
+      variant="outline"
+      className="rounded-full border-border hover:border-primary hover:bg-primary/10"
+      asChild
+    >
+      <a
+        href={project.githubUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Github className="w-5 h-5" />
+        <span className="sr-only">View source code</span>
+      </a>
+    </Button>
+  </div>
+
+  {project.featured && (
+    <div className="absolute top-4 left-4 bg-white border border-border rounded-full px-3 py-1 text-xs font-medium shadow-sm">
+      Featured
+    </div>
+  )}
+</div>
 
                 {/* Content */}
                 <div className="p-6 flex-1 flex flex-col">
