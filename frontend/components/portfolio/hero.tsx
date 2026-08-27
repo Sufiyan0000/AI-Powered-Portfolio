@@ -1,43 +1,44 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-import { gsap } from "gsap"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Bot, BotMessageSquare, Briefcase, Code, GraduationCap, Lightbulb, MessageCircle, Send, Sparkles, User } from "lucide-react"
-import { useChat } from "@/hooks/useChat"
-
-import Image from 'next/image'
-import SufiqLogo from '@/public/sufiq_logo.png'
-
-interface Message {
-  id: string
-  role: "user" | "assistant"
-  content: string
-}
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { Button } from "@/components/ui/button";
+import {
+  ArrowRight,
+  Bot,
+  Code,
+  GraduationCap,
+  Lightbulb,
+  MessageCircle,
+  Send,
+  Sparkles,
+  User,
+} from "lucide-react";
+import { useChat } from "@/hooks/useChat";
 
 export function Hero() {
-  const heroRef = useRef<HTMLDivElement>(null)
-  const titleRef = useRef<HTMLHeadingElement>(null)
-  const subtitleRef = useRef<HTMLParagraphElement>(null)
-  const buttonsRef = useRef<HTMLDivElement>(null)
-  const chatPreviewRef = useRef<HTMLDivElement>(null)
-  const particlesRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const heroRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const buttonsRef = useRef<HTMLDivElement>(null);
+  const chatPreviewRef = useRef<HTMLDivElement>(null);
+  const particlesRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Create subtle particles
       if (particlesRef.current) {
-        for (let i = 0; i < 100; i++) {
-          const particle = document.createElement("div")
-          particle.className = "particle absolute rounded-full"
-          particle.style.width = `${Math.random() * 6 + 3}px`
-          particle.style.height = particle.style.width
-          particle.style.left = `${Math.random() * 100}%`
-          particle.style.top = `${Math.random() * 100}%`
-          particle.style.background = `oklch(0.45 0.18 ${250 + Math.random() * 30} / ${0.1 + Math.random() * 0.15})`
-          particle.style.animationDelay = `${Math.random() * 5}s`
-          particlesRef.current.appendChild(particle)
+        for (let i = 0; i < 60; i++) {
+          const particle = document.createElement("div");
+          particle.className = "particle absolute rounded-full";
+          particle.style.width = `${Math.random() * 6 + 3}px`;
+          particle.style.height = particle.style.width;
+          particle.style.left = `${Math.random() * 100}%`;
+          particle.style.top = `${Math.random() * 100}%`;
+          particle.style.background = `oklch(0.45 0.18 ${250 + Math.random() * 30} / ${0.1 + Math.random() * 0.15})`;
+          particle.style.animationDelay = `${Math.random() * 5}s`;
+          particlesRef.current.appendChild(particle);
         }
       }
 
@@ -45,67 +46,75 @@ export function Hero() {
       gsap.fromTo(
         titleRef.current,
         { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
-      )
+        { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
+      );
 
       // Animate subtitle
       gsap.fromTo(
         subtitleRef.current,
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 1, delay: 0.3, ease: "power3.out" }
-      )
+        { opacity: 1, y: 0, duration: 1, delay: 0.3, ease: "power3.out" },
+      );
 
       // Animate buttons
       gsap.fromTo(
         buttonsRef.current,
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, delay: 0.6, ease: "power3.out" }
-      )
+        { opacity: 1, y: 0, duration: 0.8, delay: 0.6, ease: "power3.out" },
+      );
 
       // Animate chat preview
       gsap.fromTo(
         chatPreviewRef.current,
         { opacity: 0, x: 50, scale: 0.95 },
-        { opacity: 1, x: 0, scale: 1, duration: 1, delay: 0.5, ease: "power3.out" }
-      )
-    }, heroRef)
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 1,
+          delay: 0.5,
+          ease: "power3.out",
+        },
+      );
+    }, heroRef);
 
-    return () => ctx.revert()
-  }, [])
+    return () => ctx.revert();
+  }, []);
 
   const handleChatClick = () => {
-    inputRef.current?.focus()
-  }
+    inputRef.current?.focus();
+  };
 
-  const chat = useChat()
-
-
+  const chat = useChat();
 
   const initialPrompts = [
-    { id: 'skills', icon: Code, text: "What are your main skills?" },
-    { id: 'projects', icon: GraduationCap, text: "What projects have you worked on?" },
-    { id: 'problem-solving', icon: Lightbulb, text: "How do you approach problem-solving?" }
-  ]
+    { id: "skills", icon: Code, text: "What are your main skills?" },
+    {
+      id: "projects",
+      icon: GraduationCap,
+      text: "What GenAI projects have you built?",
+    },
+    {
+      id: "problem-solving",
+      icon: Lightbulb,
+      text: "How do you approach problem-solving?",
+    },
+  ];
 
-  const [suggestedPrompts, setSuggestedPrompts] = useState(initialPrompts)
-
+  const [suggestedPrompts, setSuggestedPrompts] = useState(initialPrompts);
 
   // BACKEND FASTAPI (CHATBOT ) INTEGRATION
   // const {messages, isTyping, input, setInput, handleSend} = useChat()
 
-  const handlePromptClick = async (
-    promptId: string,
-    promptText: string
-  ) => {
+  const handlePromptClick = async (promptId: string, promptText: string) => {
     setSuggestedPrompts((prev) =>
-      prev.filter((prompt) => prompt.id !== promptId)
-    )
+      prev.filter((prompt) => prompt.id !== promptId),
+    );
 
-    await chat.handleSend(promptText)
-  }
+    await chat.handleSend(promptText);
+  };
 
-  const messagesEndRef = useRef<HTMLDivElement>(null)
-
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   return (
     <section
@@ -113,7 +122,10 @@ export function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden animated-gradient"
     >
       {/* Particles container */}
-      <div ref={particlesRef} className="absolute inset-0 pointer-events-none" />
+      <div
+        ref={particlesRef}
+        className="absolute inset-0 pointer-events-none"
+      />
 
       {/* Subtle gradient overlays */}
       <div className="absolute top-20 left-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
@@ -125,7 +137,7 @@ export function Hero() {
           <div className="space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 text-sm text-muted-foreground">
               <Sparkles className="w-4 h-4 text-primary" />
-              <span>React • FastAPI • LangChain</span>
+              <span>GenAI • RAG • Full Stack</span>
             </div>
 
             <h1
@@ -134,17 +146,23 @@ export function Hero() {
             >
               <span className="gradient-text">Md Sufiyan Ali</span>
               <br />
-              <p>GenAI Engineer &  Full Stack Developer</p>
+              <span className="font-semibold">
+                GenAI Engineer & Full Stack Developer
+              </span>
             </h1>
 
             <p
               ref={subtitleRef}
               className="text-lg md:text-xl text-muted-foreground max-w-lg text-pretty"
             >
-              BCA student and aspiring <span className="gradient-text">AI Engineer</span> focused on
-              building <span className="gradient-text">Intelligent Chatbots</span>, 
-              and <span className="gradient-text">RAG systems</span>,  
-              <span className="gradient-text"> Modern Full-Stack Applications.</span>
+              I build intelligent{" "}
+              <span className="gradient-text">
+                AI Applications, RAG systems
+              </span>{" "}
+              and{" "}
+              <span className="gradient-text">
+                and Modern Full-Stack products that solve real-world problems.
+              </span>
             </p>
 
             <div ref={buttonsRef} className="flex flex-wrap gap-4">
@@ -169,30 +187,44 @@ export function Hero() {
             {/* Stats */}
             <div className="flex gap-8 pt-4">
               <div>
-                <div className="text-2xl md:text-3xl font-bold gradient-text">15+</div>
-                <div className="text-sm text-muted-foreground">Projects Built</div>
+                <div className="text-2xl md:text-3xl font-bold gradient-text">
+                  15+
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Projects Built
+                </div>
               </div>
               <div>
-                <div className="text-2xl md:text-3xl font-bold gradient-text">AI</div>
-                <div className="text-sm text-muted-foreground">Chatbots & RAG Apps</div>
+                <div className="text-2xl md:text-3xl font-bold gradient-text">
+                  2
+                </div>
+                <div className="text-sm text-muted-foreground">AI Projects</div>
               </div>
               <div>
-                <div className="text-2xl md:text-3xl font-bold gradient-text">Open</div>
-                <div className="text-sm text-muted-foreground">For Opportunities</div>
+                <div className="text-2xl md:text-3xl font-bold gradient-text">
+                  2+
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  {" "}
+                  Full-Stack Apps
+                </div>
               </div>
             </div>
           </div>
 
           {/* Right content - Chat Preview */}
-          <div className="chat-animate w-full max-w-[650px] glass rounded-2xl overflow-hidden flex flex-col h-[500px]">
+          <div className=" w-full max-w-[650px] glass rounded-2xl overflow-hidden flex flex-col h-[500px]"
+          ref={chatPreviewRef}>
             {/* Chat Header */}
             <div className="flex items-center gap-3 p-4 border-b border-border">
               <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <Bot  
-                className="w-6 h-5 text-primary" />
+                <Bot className="w-6 h-5 text-primary" />
               </div>
               <div>
-                <div className="font-semibold text-foreground"><span className="gradient-text">SufiQ</span> - AI Portfolio Guide</div>
+                <div className="font-semibold text-foreground">
+                  <span className="gradient-text">SufiQ</span> - Sufiyan's AI
+                  Assistant
+                </div>
                 <div className="text-sm text-muted-foreground flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-green-500" />
                   Online
@@ -208,10 +240,9 @@ export function Hero() {
                   className={`flex gap-3 ${message.role === "user" ? "flex-row-reverse" : ""}`}
                 >
                   <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${message.role === "user"
-                        ? "bg-secondary"
-                        : "bg-primary/10"
-                      }`}
+                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
+                      message.role === "user" ? "bg-secondary" : "bg-primary/10"
+                    }`}
                   >
                     {message.role === "user" ? (
                       <User className="w-4 h-4 text-secondary-foreground" />
@@ -220,10 +251,11 @@ export function Hero() {
                     )}
                   </div>
                   <div
-                    className={`rounded-xl px-4 py-3 max-w-[80%] ${message.role === "user"
+                    className={`rounded-xl px-4 py-3 max-w-[80%] ${
+                      message.role === "user"
                         ? "bg-primary text-primary-foreground rounded-tr-none"
                         : "bg-secondary rounded-tl-none"
-                      }`}
+                    }`}
                   >
                     <p className="text-sm">{message.content}</p>
                   </div>
@@ -237,9 +269,18 @@ export function Hero() {
                   </div>
                   <div className="bg-secondary rounded-xl rounded-tl-none px-4 py-3">
                     <div className="flex gap-1">
-                      <span className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: "0ms" }} />
-                      <span className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: "150ms" }} />
-                      <span className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: "300ms" }} />
+                      <span
+                        className="w-2 h-2 rounded-full bg-primary animate-bounce"
+                        style={{ animationDelay: "0ms" }}
+                      />
+                      <span
+                        className="w-2 h-2 rounded-full bg-primary animate-bounce"
+                        style={{ animationDelay: "150ms" }}
+                      />
+                      <span
+                        className="w-2 h-2 rounded-full bg-primary animate-bounce"
+                        style={{ animationDelay: "300ms" }}
+                      />
                     </div>
                   </div>
                 </div>
@@ -248,7 +289,7 @@ export function Hero() {
             </div>
 
             {/* Suggested Prompts */}
-            {suggestedPrompts.length !== 0 &&
+            {suggestedPrompts.length !== 0 && (
               <div className="chat-animate mx-3 mt-2 space-y-4 lg:col-span-1">
                 <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider">
                   Suggested Questions
@@ -266,15 +307,14 @@ export function Hero() {
                   ))}
                 </div>
               </div>
-
-            }
+            )}
 
             {/* Input */}
             <div className="p-4 border-t border-border">
               <form
                 onSubmit={(e) => {
-                  e.preventDefault()
-                  chat.handleSend()
+                  e.preventDefault();
+                  chat.handleSend();
                 }}
                 className="flex gap-2"
               >
@@ -298,11 +338,9 @@ export function Hero() {
                 </Button>
               </form>
             </div>
-
           </div>
         </div>
       </div>
-
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
@@ -311,5 +349,5 @@ export function Hero() {
         </div>
       </div>
     </section>
-  )
+  );
 }
