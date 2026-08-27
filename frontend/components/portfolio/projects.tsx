@@ -15,7 +15,7 @@ const projects = [
     title: "DocAnalyzer",
     description:
   "AI-powered document analysis platform leveraging RAG, LangChain, OpenAI GPT, ChromaDB, and semantic search to answer questions from uploaded PDF documents.",
-    image: "",
+    image: "/projects/DocAnalyzer.png",
     tags: [
       "Python",
       "FastAPI",
@@ -24,15 +24,15 @@ const projects = [
       "ChromaDB",
       "Streamlit",
     ],
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "https://analyze-doc.streamlit.app/",
+    githubUrl: "https://github.com/Sufiyan0000/DocAnalyzer",
     featured: true,
   },
   {
     title: "BookMyShow",
     description:
   "Full-stack movie ticket booking application featuring movie listings, seat selection, secure booking workflows, and RESTful APIs with a responsive user interface.",
-    image: "/project-2.jpg",
+    image: "/projects/BookMyShow.png",
     tags: [
       "React",
       "TypeScript",
@@ -41,14 +41,14 @@ const projects = [
       "REST API",
     ],
     liveUrl: "#",
-    githubUrl: "#",
+    githubUrl: "https://github.com/Sufiyan0000/BookMyShow",
     featured: true,
   },
   {
   title: "StrideX",
   description:
     "Full-stack Nike-inspired e-commerce application with modern UI, API integration, reusable components, and scalable architecture for a seamless shopping experience.",
-  image: "/project-3.jpg",
+  image: "/projects/StrideX.png",
   tags: [
     "Next.js",
     "Tailwind CSS",
@@ -57,7 +57,7 @@ const projects = [
     "Context API",
   ],
   liveUrl: "#",
-  githubUrl: "#",
+  githubUrl: "https://github.com/Sufiyan0000/StrideX",
   featured: true,
 },
 {
@@ -72,7 +72,7 @@ const projects = [
     "Responsive Design",
   ],
   liveUrl: "#",
-  githubUrl: "#",
+  githubUrl: "https://github.com/Sufiyan0000/Villa-Agency-Project",
   featured: false,
 },
 ];
