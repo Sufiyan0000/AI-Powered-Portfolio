@@ -54,7 +54,6 @@ export function Chatbot() {
   //  BACKEND CHATBOT(FASTAPI) CALL
   const chat = useChat();
 
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -80,21 +79,22 @@ export function Chatbot() {
             <span>AI-Powered</span>
           </div>
           <h2 className="chat-animate text-4xl md:text-5xl font-bold text-foreground">
-            Chat with <span className="gradient-text">SufiQ - AI Assistant</span>
+            Chat with{" "}
+            <span className="gradient-text">SufiQ - AI Assistant</span>
           </h2>
           <p className="chat-animate text-muted-foreground text-lg">
-            Have questions? <span className="gradient-text">SufiQ</span> is here to help you learn more about
-            my skills, experience, and projects.
+            Have questions? <span className="gradient-text">SufiQ</span> is here
+            to help you learn more about my skills, experience, and projects.
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto grid lg:grid-cols-4 gap-6">
           {/* Suggested Prompts */}
-          <div className="chat-animate space-y-4 lg:col-span-1">
+          <div className="chat-animate hidden space-y-4 lg:col-span-1 lg:block">
             <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider">
               Suggested Questions
             </h3>
-            <div className="mx-10 md:mx-0 space-y-2">
+            <div className="mx-10 md:mx-0 space-y-2 ">
               {suggestedPrompts.map((prompt, index) => (
                 <button
                   key={index}
@@ -109,7 +109,7 @@ export function Chatbot() {
           </div>
 
           {/* Chat Interface */}
-          <div className="chat-animate lg:col-span-3 glass rounded-2xl overflow-hidden flex flex-col h-[500px]">
+          <div className="chat-animate lg:col-span-3 glass rounded-2xl overflow-hidden flex flex-col h-[650px] lg:h-[500px]">
             {/* Chat Header */}
             <div className="flex items-center gap-3 p-4 border-b border-border">
               <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
@@ -183,32 +183,110 @@ export function Chatbot() {
             </div>
 
             {/* Input */}
-            <div className="p-4 border-t border-border">
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  chat.handleSend();
-                }}
-                className="flex gap-2"
-              >
-                <input
-                  type="text"
-                  value={chat.input}
-                  disabled={chat.isTyping}
-                  onChange={(e) => chat.setInput(e.target.value)}
-                  placeholder="Ask me anything..."
-                  className="flex-1 bg-secondary rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-                />
-                <Button
-                  type="submit"
-                  size="icon"
-                  className="bg-primary hover:bg-primary/90 rounded-xl"
-                  disabled={!chat.input.trim() || chat.isTyping}
+            {/* Mobile Suggested Questions + Input */}
+            <div className="border-t border-border">
+              {/* Mobile Suggested Questions */}
+              <div className="border-b border-border px-4 py-3 lg:hidden">
+                <div className="mb-2 flex items-center justify-between">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    Suggested questions
+                  </p>
+                </div>
+
+                <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+                  {suggestedPrompts.map((prompt) => {
+                    const Icon = prompt.icon;
+
+                    return (
+                      <button
+                        key={prompt.text}
+                        type="button"
+                        onClick={() => chat.handleSend(prompt.text)}
+                        disabled={chat.isTyping}
+                        className="
+              flex
+              shrink-0
+              items-center
+              gap-2
+              rounded-full
+              border
+              border-border
+              bg-secondary/60
+              px-4
+              py-2.5
+              text-sm
+              font-medium
+              text-foreground
+              transition-all
+              duration-200
+              hover:border-primary/30
+              hover:bg-primary/5
+              hover:text-primary
+              disabled:cursor-not-allowed
+              disabled:opacity-50
+            "
+                      >
+                        <Icon className="h-4 w-4 shrink-0 text-primary" />
+
+                        <span>{prompt.text}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Input */}
+              <div className="p-4">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    chat.handleSend();
+                  }}
+                  className="flex gap-2"
                 >
-                  <Send className="w-4 h-4" />
-                  <span className="sr-only">Send message</span>
-                </Button>
-              </form>
+                  <input
+                    type="text"
+                    value={chat.input}
+                    disabled={chat.isTyping}
+                    onChange={(e) => chat.setInput(e.target.value)}
+                    placeholder="Ask SufiQ anything..."
+                    className="
+          min-w-0
+          flex-1
+          rounded-xl
+          border
+          border-border
+          bg-secondary/70
+          px-4
+          py-3
+          text-sm
+          text-foreground
+          placeholder:text-muted-foreground
+          focus:outline-none
+          focus:ring-2
+          focus:ring-primary/40
+        "
+                  />
+
+                  <Button
+                    type="submit"
+                    size="icon"
+                    disabled={!chat.input.trim() || chat.isTyping}
+                    className="
+          h-11
+          w-11
+          shrink-0
+          rounded-xl
+          bg-primary
+          hover:bg-primary/90
+        "
+                  >
+                    <Send className="h-4 w-4" />
+
+                    <span className="sr-only">Send message</span>
+                  </Button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
