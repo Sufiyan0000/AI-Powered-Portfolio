@@ -1,7 +1,7 @@
 "use client"
 
 import { CertificateCard } from "./certificate-card"
-import { Certificate, certificates } from "@/data/certifications-data"
+import { Certificate } from "@/data/certifications-data"
 
 interface CertificateGridProps {
   certificates: Certificate[]
@@ -13,45 +13,66 @@ export function CertificateGrid({
   onViewPdf,
 }: CertificateGridProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[360px] lg:auto-rows-[320px] gap-4 mx-10">
-      {certificates.map((cert, index) => {
-        let sizeClasses = ""
+    <div
+      className="
+        mx-auto
+        w-full
+        max-w-6xl
+        px-4
+        sm:px-6
+        lg:px-0
+      "
+    >
+      <div
+        className="
+          grid
+          grid-cols-1
+          gap-4
+          md:grid-cols-2
+          lg:grid-cols-4
+          auto-rows-[360px]
+          lg:auto-rows-[280px]
+        "
+      >
+        {certificates.map((cert, index) => {
+          let sizeClasses = ""
 
-        switch (index) {
-          case 0:
-            // Featured card
-            sizeClasses = "lg:col-span-2 lg:row-span-2 lg:space-x-10"
-            break
+          switch (index) {
+            case 0:
+              // Featured card
+              sizeClasses = "lg:col-span-2 lg:row-span-2"
+              break
 
-          case 1:
-            // Top-right wide card
-            sizeClasses = "lg:col-span-2"
-            break
+            case 1:
+              // Top-right wide card
+              sizeClasses = "lg:col-span-2"
+              break
 
-          case 4:
-            // Middle wide card
-            sizeClasses = "lg:col-span-2"
-            break
+            case 4:
+              // Middle wide card
+              sizeClasses = "lg:col-span-2"
+              break
 
-          default:
-            sizeClasses = ""
-        }
+            default:
+              sizeClasses = ""
+          }
 
-        return (
-          <div
-            key={cert.id}
-            className={`animate-fade-up ${sizeClasses}`}
-            style={{
-              animationDelay: `${index * 50}ms`,
-            }}
-          >
-            <CertificateCard
-              certificate={cert}
-              onViewPdf={onViewPdf}
-            />
-          </div>
-        )
-      })}
+          return (
+            <div
+              key={cert.id}
+              className={`animate-fade-up ${sizeClasses}`}
+              style={{
+                animationDelay: `${index * 50}ms`,
+              }}
+            >
+              <CertificateCard
+                certificate={cert}
+                onViewPdf={onViewPdf}
+              />
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
