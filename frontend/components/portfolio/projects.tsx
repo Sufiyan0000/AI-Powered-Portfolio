@@ -116,7 +116,7 @@ export function Projects() {
         ".project-card",
         {
           opacity: 0,
-          y: 50,
+          y: 40,
         },
         {
           opacity: 1,
@@ -136,12 +136,13 @@ export function Projects() {
     return () => ctx.revert()
   }, [])
 
-  const getProjectUrl = (project: Project) => {
-    return project.liveUrl ?? project.githubUrl
-  }
+  const featuredProject = projects.find(
+    (project) => project.featured
+  ) ?? projects[0]
 
-  const featuredProject = projects[0]
-  const secondaryProjects = projects.slice(1)
+  const secondaryProjects = projects.filter(
+    (project) => project !== featuredProject
+  )
 
   return (
     <section
@@ -153,94 +154,86 @@ export function Projects() {
       <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
       <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
 
-      <div className="container relative z-10 mx-auto px-4">
+      <div className="container relative z-10 mx-auto max-w-6xl px-4">
         {/* Section Header */}
-        <div className="mx-auto mb-16 max-w-2xl space-y-4 text-center">
+        <div className="mx-auto mb-14 max-w-2xl space-y-4 text-center">
           <p className="text-sm font-medium uppercase tracking-wider text-primary">
             Featured Work
           </p>
 
           <h2 className="text-4xl font-bold text-foreground md:text-5xl">
-            Featured{" "}
+            Selected{" "}
             <span className="gradient-text">Projects</span>
           </h2>
 
           <p className="text-lg text-muted-foreground">
-            A selection of AI and full-stack applications I&apos;ve built
-            to solve real-world problems.
+            A selection of projects showcasing my work across
+            GenAI, full-stack development, and modern web
+            applications.
           </p>
         </div>
 
         {/* =========================================================
-            FEATURED PROJECT — DOCANALYZER
+            FEATURED PROJECT
         ========================================================= */}
         <article className="project-card group mb-6">
           <div className="glass overflow-hidden rounded-3xl card-hover">
             <div className="grid lg:grid-cols-2">
-              {/* Featured Project Image */}
-              {getProjectUrl(featuredProject) ? (
-                <a
-                  href={getProjectUrl(featuredProject)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`View ${featuredProject.title} project`}
-                  className="group/image relative block min-h-[280px] overflow-hidden bg-muted lg:min-h-[460px]"
-                >
-                  <Image
-                    src={featuredProject.image}
-                    alt={featuredProject.title}
-                    fill
-                    priority
-                    className="object-cover transition-transform duration-500 group-hover/image:scale-[1.03]"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
+              {/* Featured Image */}
+              <a
+                href={
+                  featuredProject.liveUrl ??
+                  featuredProject.githubUrl
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View ${featuredProject.title} project`}
+                className="group/image relative block h-64 overflow-hidden bg-muted lg:h-[360px]"
+              >
+                <Image
+                  src={featuredProject.image}
+                  alt={featuredProject.title}
+                  fill
+                  priority
+                  className="object-cover transition-transform duration-500 group-hover/image:scale-[1.03]"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
 
-                  {/* Image Gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+                {/* Image Gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
 
-                  {/* View Project Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover/image:opacity-100">
-                    <div className="flex items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2 text-sm font-medium shadow-lg backdrop-blur-sm">
-                      View Project
-                      <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/image:-translate-y-0.5 group-hover/image:translate-x-0.5" />
-                    </div>
+                {/* View Project Overlay */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover/image:opacity-100">
+                  <div className="flex items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2 text-sm font-medium shadow-lg backdrop-blur-sm">
+                    View Project
+
+                    <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/image:-translate-y-0.5 group-hover/image:translate-x-0.5" />
                   </div>
-
-                  {/* Project Status */}
-                  <div className="absolute left-5 top-5 flex items-center gap-2">
-                    <span className="rounded-full border border-border bg-white/90 px-3 py-1 text-xs font-medium shadow-sm backdrop-blur-sm">
-                      Featured
-                    </span>
-
-                    {featuredProject.status === "live" && (
-                      <span className="flex items-center gap-1.5 rounded-full border border-border bg-white/90 px-3 py-1 text-xs font-medium shadow-sm backdrop-blur-sm">
-                        <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
-                        Live
-                      </span>
-                    )}
-                  </div>
-                </a>
-              ) : (
-                <div className="relative min-h-[280px] overflow-hidden bg-muted lg:min-h-[460px]">
-                  <Image
-                    src={featuredProject.image}
-                    alt={featuredProject.title}
-                    fill
-                    priority
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
                 </div>
-              )}
 
-              {/* Featured Project Content */}
-              <div className="flex flex-col justify-center p-8 lg:p-10">
+                {/* Project Status */}
+                <div className="absolute left-5 top-5 flex items-center gap-2">
+                  <span className="rounded-full border border-border bg-white/90 px-3 py-1 text-xs font-medium shadow-sm backdrop-blur-sm">
+                    Featured
+                  </span>
+
+                  {featuredProject.status === "live" && (
+                    <span className="flex items-center gap-1.5 rounded-full border border-border bg-white/90 px-3 py-1 text-xs font-medium shadow-sm backdrop-blur-sm">
+                      <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                      Live
+                    </span>
+                  )}
+                </div>
+              </a>
+
+              {/* Featured Content */}
+              <div className="flex flex-col justify-center p-7 lg:p-8">
                 <div className="mb-5">
                   <p className="mb-2 text-sm font-medium text-primary">
                     AI / RAG
                   </p>
 
-                  <h3 className="mb-4 text-3xl font-bold text-foreground">
+                  <h3 className="mb-3 text-3xl font-bold text-foreground">
                     {featuredProject.title}
                   </h3>
 
@@ -250,7 +243,7 @@ export function Projects() {
                 </div>
 
                 {/* Technologies */}
-                <div className="mb-8 flex flex-wrap gap-2">
+                <div className="mb-7 flex flex-wrap gap-2">
                   {featuredProject.tags.map((tag) => (
                     <Badge
                       key={tag}
@@ -276,6 +269,7 @@ export function Projects() {
                         rel="noopener noreferrer"
                       >
                         Live Demo
+
                         <ExternalLink className="ml-2 h-3.5 w-3.5 transition-transform duration-300 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
                       </a>
                     </Button>
@@ -294,6 +288,7 @@ export function Projects() {
                         rel="noopener noreferrer"
                       >
                         GitHub
+
                         <Github className="ml-2 h-3.5 w-3.5 transition-transform duration-300 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
                       </a>
                     </Button>
@@ -315,54 +310,37 @@ export function Projects() {
             >
               <div className="glass flex h-full flex-col overflow-hidden rounded-2xl card-hover">
                 {/* Project Image */}
-                {getProjectUrl(project) ? (
-                  <a
-                    href={getProjectUrl(project)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`View ${project.title} project`}
-                    className="group/image relative block aspect-video overflow-hidden bg-muted"
-                  >
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover/image:scale-[1.03]"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
+                <a
+                  href={
+                    project.liveUrl ??
+                    project.githubUrl
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`View ${project.title} project`}
+                  className="group/image relative block h-52 overflow-hidden bg-muted"
+                >
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover object-[center_40%] transition-transform duration-500 group-hover/image:scale-[1.03]"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
 
-                    {/* Hover Overlay */}
-                    <div className="absolute inset-0 flex items-center justify-center bg-background/20 opacity-0 transition-all duration-300 group-hover/image:bg-background/30 group-hover/image:opacity-100">
-                      <div className="flex items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2 text-sm font-medium shadow-lg backdrop-blur-sm">
-                        View Project
-                        <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/image:-translate-y-0.5 group-hover/image:translate-x-0.5" />
-                      </div>
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-background/20 opacity-0 transition-all duration-300 group-hover/image:bg-background/30 group-hover/image:opacity-100">
+                    <div className="flex items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2 text-sm font-medium shadow-lg backdrop-blur-sm">
+                      View Project
+
+                      <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/image:-translate-y-0.5 group-hover/image:translate-x-0.5" />
                     </div>
-
-                    {/* Featured Badge */}
-                    {project.featured && (
-                      <div className="absolute left-4 top-4">
-                        <span className="rounded-full border border-border bg-white/90 px-3 py-1 text-xs font-medium shadow-sm backdrop-blur-sm">
-                          Featured
-                        </span>
-                      </div>
-                    )}
-                  </a>
-                ) : (
-                  <div className="relative aspect-video overflow-hidden bg-muted">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
                   </div>
-                )}
+                </a>
 
                 {/* Project Content */}
                 <div className="flex flex-1 flex-col p-6">
-                  <div className="mb-4 flex items-start justify-between gap-4">
+                  <div className="mb-3 flex items-start justify-between gap-4">
                     <h3 className="text-xl font-semibold text-foreground transition-colors group-hover:text-primary">
                       {project.title}
                     </h3>
@@ -370,7 +348,7 @@ export function Projects() {
                     <ArrowUpRight className="h-5 w-5 shrink-0 text-muted-foreground transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
                   </div>
 
-                  <p className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mb-5 text-sm leading-6 text-muted-foreground">
                     {project.description}
                   </p>
 
@@ -388,7 +366,7 @@ export function Projects() {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex items-center gap-2">
+                  <div className="mt-auto flex items-center gap-2">
                     {project.liveUrl && (
                       <Button
                         asChild
@@ -402,6 +380,7 @@ export function Projects() {
                           rel="noopener noreferrer"
                         >
                           Live Demo
+
                           <ExternalLink className="ml-2 h-3.5 w-3.5 transition-transform duration-300 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
                         </a>
                       </Button>
@@ -420,6 +399,7 @@ export function Projects() {
                           rel="noopener noreferrer"
                         >
                           GitHub
+
                           <Github className="ml-2 h-3.5 w-3.5 transition-transform duration-300 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
                         </a>
                       </Button>
