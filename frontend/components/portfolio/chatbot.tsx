@@ -25,12 +25,7 @@ const suggestedPrompts = [
     emoji: "🧑‍💻",
     text: "What are your main skills?",
   },
-  {
-    id: "experience",
-    icon: Briefcase,
-    emoji: "💼",
-    text: "Tell me about your experience",
-  },
+  
   {
     id: "projects",
     icon: GraduationCap,
@@ -38,28 +33,10 @@ const suggestedPrompts = [
     text: "What projects have you built?",
   },
   {
-    id: "problem-solving",
-    icon: Lightbulb,
-    emoji: "🧠",
-    text: "How do you approach problem-solving?",
-  },
-  {
     id: "remote-work",
     icon: Briefcase,
     emoji: "🌍",
     text: "Are you open to remote work?",
-  },
-  {
-    id: "hybrid-work",
-    icon: Briefcase,
-    emoji: "🏢",
-    text: "Are you comfortable with hybrid work?",
-  },
-  {
-    id: "contract-work",
-    icon: Briefcase,
-    emoji: "📄",
-    text: "Are you open to contract work?",
   },
   {
     id: "freelance",
@@ -165,7 +142,7 @@ export function Chatbot() {
           </div>
 
           {/* Chat Interface */}
-          <div className="chat-animate lg:col-span-3 glass rounded-2xl overflow-hidden flex flex-col h-[650px] lg:h-[500px]">
+          <div className="chat-animate lg:col-span-3 glass rounded-2xl overflow-hidden flex flex-col h-[650px] lg:h-[600px]">
             {/* Chat Header */}
             <div className="flex items-center gap-3 p-4 border-b border-border">
               <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
