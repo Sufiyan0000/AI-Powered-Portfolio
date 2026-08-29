@@ -19,11 +19,67 @@ import { useChat } from "@/hooks/useChat";
 gsap.registerPlugin(ScrollTrigger);
 
 const suggestedPrompts = [
-  { icon: Code2, text: "What are your main skills?" },
-  { icon: Briefcase, text: "Tell me about your experience" },
-  { icon: GraduationCap, text: "What projects have you worked on?" },
-  { icon: Lightbulb, text: "How do you approach problem-solving?" },
-];
+  {
+    id: "skills",
+    icon: Code2,
+    emoji: "🧑‍💻",
+    text: "What are your main skills?",
+  },
+  {
+    id: "experience",
+    icon: Briefcase,
+    emoji: "💼",
+    text: "Tell me about your experience",
+  },
+  {
+    id: "projects",
+    icon: GraduationCap,
+    emoji: "🚀",
+    text: "What projects have you built?",
+  },
+  {
+    id: "problem-solving",
+    icon: Lightbulb,
+    emoji: "🧠",
+    text: "How do you approach problem-solving?",
+  },
+  {
+    id: "remote-work",
+    icon: Briefcase,
+    emoji: "🌍",
+    text: "Are you open to remote work?",
+  },
+  {
+    id: "hybrid-work",
+    icon: Briefcase,
+    emoji: "🏢",
+    text: "Are you comfortable with hybrid work?",
+  },
+  {
+    id: "contract-work",
+    icon: Briefcase,
+    emoji: "📄",
+    text: "Are you open to contract work?",
+  },
+  {
+    id: "freelance",
+    icon: Code2,
+    emoji: "🚀",
+    text: "Do you take freelance projects?",
+  },
+  {
+    id: "hourly-work",
+    icon: Briefcase,
+    emoji: "⏱️",
+    text: "Do you take hourly projects?",
+  },
+  {
+    id: "salary",
+    icon: Briefcase,
+    emoji: "💰",
+    text: "What are your salary expectations?",
+  },
+]
 
 export function Chatbot() {
   const sectionRef = useRef<HTMLElement>(null);

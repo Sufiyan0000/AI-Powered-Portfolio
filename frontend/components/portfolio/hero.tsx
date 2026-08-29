@@ -6,13 +6,19 @@ import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
   Bot,
+  Briefcase,
+  Building2,
+  Clock,
   Code,
+  FileText,
+  Globe,
   GraduationCap,
   Lightbulb,
   MessageCircle,
   Send,
   Sparkles,
   User,
+  Wallet,
 } from "lucide-react";
 import { useChat } from "@/hooks/useChat";
 
@@ -88,9 +94,13 @@ export function Hero() {
   const chat = useChat();
 
   const initialPrompts = [
-    { id: "skills", icon: Code, text: "What are your main skills?" },
     {
-      id: "projects",
+      id: "skills",
+      icon: Code,
+      text: "What are your main skills?",
+    },
+    {
+      id: "genai-projects",
       icon: GraduationCap,
       text: "What GenAI projects have you built?",
     },
@@ -98,6 +108,41 @@ export function Hero() {
       id: "problem-solving",
       icon: Lightbulb,
       text: "How do you approach problem-solving?",
+    },
+    {
+      id: "experience",
+      icon: Briefcase,
+      text: "Tell me about your experience",
+    },
+    {
+      id: "remote-work",
+      icon: Globe,
+      text: "Are you open to remote work?",
+    },
+    {
+      id: "hybrid-work",
+      icon: Building2,
+      text: "Are you comfortable with hybrid work?",
+    },
+    {
+      id: "contract-work",
+      icon: FileText,
+      text: "Are you open to contract work?",
+    },
+    {
+      id: "freelance",
+      icon: Briefcase,
+      text: "Do you take freelance projects?",
+    },
+    {
+      id: "hourly-work",
+      icon: Clock,
+      text: "Do you take hourly projects?",
+    },
+    {
+      id: "salary",
+      icon: Wallet,
+      text: "What are your salary expectations?",
     },
   ];
 
@@ -213,8 +258,10 @@ export function Hero() {
           </div>
 
           {/* Right content - Chat Preview */}
-          <div className=" w-full max-w-[650px] glass rounded-2xl overflow-hidden flex flex-col h-[500px]"
-          ref={chatPreviewRef}>
+          <div
+            className=" w-full max-w-[650px] glass rounded-2xl overflow-hidden flex flex-col h-[620px] sm:h-[600px] lg:h-[600px]"
+            ref={chatPreviewRef}
+          >
             {/* Chat Header */}
             <div className="flex items-center gap-3 p-4 border-b border-border">
               <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
@@ -257,7 +304,9 @@ export function Hero() {
                         : "bg-secondary rounded-tl-none"
                     }`}
                   >
-                    <p className="text-sm">{message.content}</p>
+                    <p className="text-sm whitespace-pre-line">
+                      {message.content}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -290,21 +339,45 @@ export function Hero() {
 
             {/* Suggested Prompts */}
             {suggestedPrompts.length !== 0 && (
-              <div className="chat-animate mx-3 mt-2 space-y-4 lg:col-span-1">
+              <div className="chat-animate mx-3 mt-2 space-y-3">
                 <h3 className="font-semibold text-sm text-muted-foreground uppercase tracking-wider">
                   Suggested Questions
                 </h3>
-                <div className="flex gap-2 overflow-x-auto pb-2">
-                  {suggestedPrompts.map((prompt, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handlePromptClick(prompt.id, prompt.text)}
-                      className="shrink-0 rounded-full border border-border px-4 py-2 text-sm whitespace-nowrap hover:border-primary hover:text-primary transition-all"
-                    >
-                      {/* <prompt.icon className="w-5 h-5 text-primary mb-2 group-hover:scale-110 transition-transform" /> */}
-                      <p className="text-sm text-foreground">{prompt.text}</p>
-                    </button>
-                  ))}
+                <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                  {suggestedPrompts.map((prompt) => {
+                    const Icon = prompt.icon;
+
+                    return (
+                      <button
+                        key={prompt.id}
+                        type="button"
+                        onClick={() =>
+                          handlePromptClick(prompt.id, prompt.text)
+                        }
+                        disabled={chat.isTyping}
+                        className="
+          flex shrink-0 items-center gap-2
+          rounded-full
+          border border-border
+          bg-secondary/60
+          px-4 py-2
+          text-sm font-medium
+          text-foreground
+          whitespace-nowrap
+          transition-all duration-200
+          hover:border-primary/30
+          hover:bg-primary/5
+          hover:text-primary
+          disabled:cursor-not-allowed
+          disabled:opacity-50
+        "
+                      >
+                        <Icon className="h-4 w-4 text-primary" />
+
+                        <span>{prompt.text}</span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             )}
