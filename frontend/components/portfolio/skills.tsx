@@ -3,26 +3,54 @@
 import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import {
+  Brain,
+  Code2,
+  Server,
+  Wrench,
+  Sparkles,
+} from "lucide-react"
 
 gsap.registerPlugin(ScrollTrigger)
 
 const skillCategories = [
   {
-    title: "Frontend",
-    description: "Building modern and responsive user interfaces",
+    title: "Generative AI",
+    description:
+      "Building intelligent applications powered by modern AI systems.",
+    icon: Brain,
+    featured: true,
     skills: [
-      "React",
+      "LangChain",
+      "RAG",
+      "LLMs",
+      "AI Chatbots",
+      "Prompt Engineering",
+      "Embeddings",
+      "Vector Databases",
+      "OpenAI APIs",
+    ],
+  },
+  {
+    title: "Frontend",
+    description:
+      "Creating modern, responsive, and interactive user experiences.",
+    icon: Code2,
+    skills: [
       "Next.js",
+      "React",
       "TypeScript",
       "JavaScript",
       "Tailwind CSS",
       "GSAP",
-      "Framer Motion"
-    ]
+      "Framer Motion",
+    ],
   },
   {
     title: "Backend",
-    description: "Scalable APIs and backend systems",
+    description:
+      "Building reliable APIs and backend systems for full-stack applications.",
+    icon: Server,
     skills: [
       "FastAPI",
       "Django",
@@ -30,22 +58,20 @@ const skillCategories = [
       "REST APIs",
       "SQL",
       "Authentication",
-      "Pydantic"
-    ]
+      "Pydantic",
+    ],
   },
-  {
-    title: "Generative AI",
-    description: "AI-powered applications and intelligent systems",
-    skills: [
-      "LangChain",
-      "RAG",
-      "AI Chatbots",
-      "OpenAI APIs",
-      "Prompt Engineering",
-      "Vector Databases",
-      "LLM Applications"
-    ]
-  }
+]
+
+const ecosystemTools = [
+  "Git",
+  "Docker",
+  "AWS",
+  "Vercel",
+  "Redis",
+  "MongoDB",
+  "Linux",
+  "CI/CD",
 ]
 
 export function Skills() {
@@ -53,38 +79,42 @@ export function Skills() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Animate skill cards
       gsap.fromTo(
         ".skill-category",
-        { opacity: 0, y: 40 },
+        {
+          opacity: 0,
+          y: 40,
+        },
         {
           opacity: 1,
           y: 0,
           duration: 0.8,
-          stagger: 0.2,
+          stagger: 0.15,
           ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
+            toggleActions: "play none none reverse",
+          },
         }
       )
 
-      // Animate progress bars
       gsap.fromTo(
-        ".skill-progress",
-        { width: 0 },
+        ".ecosystem-card",
         {
-          width: (index, target) => target.dataset.level + "%",
-          duration: 1.2,
-          stagger: 0.05,
+          opacity: 0,
+          y: 30,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 70%",
-            toggleActions: "play none none reverse"
-          }
+            trigger: ".ecosystem-card",
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
         }
       )
     }, sectionRef)
@@ -96,81 +126,153 @@ export function Skills() {
     <section
       ref={sectionRef}
       id="skills"
-      className="py-24 relative overflow-hidden bg-background"
+      className="relative overflow-hidden bg-background py-24"
     >
-      {/* Subtle backgrounds */}
-      <div className="absolute top-0 left-1/4 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
+      {/* Subtle background elements */}
+      <div className="pointer-events-none absolute left-1/4 top-0 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 right-1/4 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-          <p className="text-primary font-medium">Technical Expertise</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-            Skills &{" "}
-            <span className="gradient-text">Technologies</span>
+      <div className="container relative z-10 mx-auto max-w-6xl px-4">
+        {/* Section Header */}
+        <div className="mx-auto mb-16 max-w-2xl space-y-4 text-center">
+          <div className="inline-flex items-center gap-2 text-sm font-medium text-primary">
+            <Sparkles className="h-4 w-4" />
+            Technical Expertise
+          </div>
+
+          <h2 className="text-4xl font-bold text-foreground md:text-5xl">
+            Technologies I{" "}
+            <span className="gradient-text">Build With</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
-          Building modern web applications, scalable backend systems,
-          and AI-powered experiences using cutting-edge technologies.
+
+          <p className="text-lg text-muted-foreground">
+            A focused set of technologies I use to build intelligent,
+            scalable, and modern digital products.
           </p>
         </div>
 
-        {/* Skills Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {skillCategories.map((category) => (
-            <div
-              key={category.title}
-              className="skill-category glass rounded-2xl p-6 card-hover"
-            >
-              <h3 className="text-xl font-semibold mb-2 gradient-text">
+        {/* Main Skill Categories */}
+        <div className="grid gap-8 lg:grid-cols-2">
+          {/* Featured Generative AI Card */}
+          {/* Featured Generative AI Card */}
+{skillCategories
+  .filter((category) => category.featured)
+  .map((category) => {
+    const Icon = category.icon
+
+    return (
+      <div
+        key={category.title}
+        className="skill-category card-hover glass rounded-2xl p-8 lg:col-span-2"
+      >
+        <div className="flex flex-col gap-7">
+          {/* Category Header */}
+          <div className="flex items-start gap-4">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+              <Icon className="h-6 w-6 text-primary" />
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-semibold text-foreground">
                 {category.title}
               </h3>
 
-              <p className="text-sm text-muted-foreground mb-6">
+              <p className="mt-2 text-muted-foreground">
                 {category.description}
               </p>
-
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="
-              px-3
-              py-2
-              rounded-full
-              bg-primary/10
-              text-primary
-              text-sm
-              font-medium
-              border
-              border-primary/20
-              hover:bg-primary
-              hover:text-primary-foreground
-              transition-all
-              duration-300
-            "
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
             </div>
-          ))}
+          </div>
+
+          {/* AI Skills */}
+          <div className="flex flex-wrap gap-3">
+            {category.skills.map((skill) => (
+              <span
+                key={skill}
+                className="
+                  rounded-full
+                  border border-primary/20
+                  bg-primary/10
+                  px-4 py-2
+                  text-sm font-medium
+                  text-primary
+                  transition-all duration-300
+                  hover:border-primary/40
+                  hover:bg-primary
+                  hover:text-primary-foreground
+                "
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    )
+  })}
+
+          {/* Frontend + Backend */}
+          {skillCategories
+            .filter((category) => !category.featured)
+            .map((category) => {
+              const Icon = category.icon
+
+              return (
+                <div
+                  key={category.title}
+                  className="skill-category card-hover glass rounded-2xl p-7"
+                >
+                  <div className="mb-6 flex items-start gap-4">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+                      <Icon className="h-5 w-5 text-primary" />
+                    </div>
+
+                    <div>
+                      <h3 className="text-xl font-semibold text-foreground">
+                        {category.title}
+                      </h3>
+
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {category.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2.5">
+                    {category.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="rounded-lg border border-border bg-secondary/60 px-3 py-2 text-sm font-medium text-foreground transition-all duration-300 hover:border-primary/30 hover:bg-primary/10 hover:text-primary"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )
+            })}
         </div>
 
-        {/* Additional Skills */}
-        <div className="mt-12 glass rounded-2xl p-8">
-          <h3 className="text-xl font-semibold mb-6 text-center text-foreground">Additional Tools & Platforms</h3>
+        {/* Ecosystem */}
+        <div className="ecosystem-card mt-8 glass rounded-2xl p-7">
+          <div className="mb-6 flex flex-col items-center gap-2 text-center">
+            <div className="flex items-center gap-2">
+              <Wrench className="h-5 w-5 text-primary" />
+
+              <h3 className="text-xl font-semibold text-foreground">
+                Ecosystem
+              </h3>
+            </div>
+
+            <p className="text-sm text-muted-foreground">
+              Tools and platforms I use throughout the development workflow.
+            </p>
+          </div>
+
           <div className="flex flex-wrap justify-center gap-3">
-            {[
-              "Git", "Docker", "Kubernetes", "AWS", "Vercel",
-              "Firebase", "Supabase", "Redis", "MongoDB", "Prisma",
-              "Jest", "Cypress", "Figma", "Linux", "CI/CD"
-            ].map((tool) => (
+            {ecosystemTools.map((tool) => (
               <span
                 key={tool}
-                className="px-4 py-2 bg-secondary rounded-full text-sm text-secondary-foreground hover:bg-primary/10 hover:text-primary transition-colors cursor-default"
+                className="rounded-full border border-border bg-secondary/60 px-4 py-2 text-sm font-medium text-secondary-foreground transition-all duration-300 hover:border-primary/30 hover:bg-primary/10 hover:text-primary"
               >
                 {tool}
               </span>
