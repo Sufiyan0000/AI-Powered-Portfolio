@@ -4,7 +4,11 @@
 
 ### Who are you?
 
-My name is Md Sufiyan Ali. I am a software developer currently pursuing a Bachelor of Computer Applications (BCA). I am passionate about Full Stack Development, Artificial Intelligence, and Generative AI technologies.
+My name is Md Sufiyan Ali. I am a BCA student and software developer based in Ranchi, Jharkhand, India.
+
+I build modern web applications and AI-powered software, with a particular interest in Full Stack Development, Backend Engineering, and Generative AI.
+
+My development approach is centered around learning through real projects, experimenting with modern technologies, and solving practical problems through software.
 
 ---
 
@@ -14,28 +18,25 @@ I am based in Ranchi, Jharkhand, India.
 
 ---
 
-### How old are you?
-
-I am 23 years old.
-
----
-
 ### What is your educational background?
 
 I completed my higher secondary education (12th) from Gossner College, Ranchi and am currently pursuing a Bachelor of Computer Applications (BCA).
 
+My academic and self-learning journey has focused on software development, web development, databases, and artificial intelligence fundamentals.
+
 ---
 
-### What are your primary interests?
+### What are your primary areas of interest?
 
-My primary interests include:
+My primary areas of interest are:
 
-* Full Stack Development
-* Artificial Intelligence
-* Generative AI
-* Backend Engineering
-* Modern Web Development
-* AI-Powered Applications
+- Full Stack Development
+- Backend Engineering
+- Generative AI
+- AI-Powered Applications
+- Modern Web Development
+- Large Language Model Applications
+- Retrieval-Augmented Generation (RAG)
 
 ---
 
@@ -43,13 +44,19 @@ My primary interests include:
 
 ### What are your strongest technical skills?
 
-My strongest technical skills include:
+My strongest areas include:
 
-* React
-* Django
-* FastAPI
-* LangChain
-* Retrieval-Augmented Generation (RAG)
+- React
+- Next.js
+- TypeScript
+- Python
+- Django
+- FastAPI
+- LangChain
+- REST API Development
+- Retrieval-Augmented Generation (RAG)
+
+I am particularly interested in combining full-stack engineering with Generative AI to build complete, practical applications.
 
 ---
 
@@ -57,92 +64,164 @@ My strongest technical skills include:
 
 I primarily work with:
 
-* React
-* Next.js
-* JavaScript
-* TypeScript
-* Tailwind CSS
-* HTML5
-* CSS3
+- React
+- Next.js
+- TypeScript
+- JavaScript
+- Tailwind CSS
+- HTML
+- CSS
+- GSAP
+- Framer Motion
 
 ---
 
 ### Which backend technologies do you use?
 
-I have experience with:
+My backend experience includes:
 
-* Django
-* FastAPI
-* REST API Development
-* Authentication Systems
-* Middleware
-* Dependency Injection
+- Python
+- FastAPI
+- Django
+- Django REST Framework
+- REST API Development
+- Authentication
+- Pydantic
+- Backend application architecture
 
 ---
 
-### Which databases have you worked with?
+### Which databases and data technologies have you worked with?
 
 I have worked with:
 
-* MySQL
-* SQLite
-* ChromaDB
+- MySQL
+- SQLite
+- ChromaDB
+
+ChromaDB has been particularly relevant to my Generative AI projects for storing and retrieving vector embeddings.
 
 ---
 
-### Do you have experience with AI technologies?
+### What programming languages do you use?
+
+I have experience with:
+
+- Python
+- JavaScript
+- TypeScript
+- Java
+- SQL
+
+My primary development languages are currently Python, TypeScript, and JavaScript.
+
+---
+
+## Generative AI
+
+### Do you have experience with Artificial Intelligence?
 
 Yes.
 
+I have built and experimented with AI-powered applications involving Large Language Models, Retrieval-Augmented Generation, semantic search, embeddings, vector databases, and AI chatbots.
+
+My focus is on applying AI to practical software applications rather than working only with theoretical AI concepts.
+
+---
+
+### What Generative AI technologies have you used?
+
 I have worked with:
 
-* LangChain
-* RAG Pipelines
-* ChromaDB
-* Prompt Engineering
-* Semantic Search
-* AI Chatbot Development
-* LLM Integration
+- LangChain
+- Large Language Models (LLMs)
+- RAG
+- ChromaDB
+- Embeddings
+- Semantic Search
+- Prompt Engineering
+- AI Chatbots
+- LLM APIs
+
+I have also worked with Google's Gemini API in previous AI projects.
 
 ---
 
-### What programming languages do you know?
+### What is RAG?
 
-I have experience with:
+RAG stands for Retrieval-Augmented Generation.
 
-* Python
-* JavaScript
-* TypeScript
-* Java
-* SQL
+It is an approach where relevant information is retrieved from a knowledge source before being provided to a language model. This allows an AI application to generate responses based on specific external information rather than relying only on the model's internal knowledge.
+
+I have implemented RAG-based functionality in projects such as DocAnalyzer and my AI-powered portfolio.
 
 ---
 
-## Learning & Growth
+### Have you built an AI chatbot?
+
+Yes.
+
+I have built AI-powered chatbot functionality using Large Language Models, retrieval systems, and contextual data.
+
+My current portfolio includes SufiQ, an AI assistant designed to answer questions about my background, skills, projects, education, and development journey.
+
+---
+
+### What AI project are you most proud of?
+
+DocAnalyzer is one of my most significant AI projects.
+
+It is an AI-powered document assistant that allows users to upload PDF documents and ask questions about their content.
+
+The application uses concepts including:
+
+- Retrieval-Augmented Generation
+- Semantic Search
+- Embeddings
+- Vector Databases
+- LangChain
+- LLM-powered responses
+
+DocAnalyzer is currently available as a live application.
+
+---
+
+## Current Learning
 
 ### What are you currently learning?
 
-I am currently focused on Generative AI and modern AI application development.
+I am currently focused on deepening my knowledge of Generative AI and modern AI application development.
 
-My learning areas include:
+My current learning areas include:
 
-* Large Language Models (LLMs)
-* Advanced RAG Systems
-* AI Agents
-* LangGraph
-* Production AI Architectures
+- Large Language Models
+- Advanced RAG concepts
+- AI Agents
+- LangChain
+- LangGraph
+- Vector Databases
+- Semantic Search
+- LLM Application Development
+- FastAPI
+- Backend Architecture
+- Production-oriented AI Systems
+
+These are areas I am actively learning and experimenting with rather than claiming as extensive professional experience.
 
 ---
 
-### How do you improve your skills?
+### How do you improve your technical skills?
 
-I learn primarily through:
+I primarily learn by:
 
-* Building real-world projects
-* Solving programming problems
-* Exploring new technologies
-* Reading technical documentation
-* Implementing practical applications
+- Building real projects
+- Reading technical documentation
+- Experimenting with new technologies
+- Solving programming problems
+- Implementing practical applications
+- Studying software architecture and development patterns
+
+I prefer project-based learning because it helps me understand how technologies work together in complete applications.
 
 ---
 
@@ -152,73 +231,105 @@ I learn primarily through:
 
 Some of my notable projects include:
 
-* DropPost (Social Media Application)
-* BookMyShow Clone
-* Nike Ecommerce
-* Villa Agency Project
-* AI-Powered Portfolio Assistant
+- DocAnalyzer
+- AI-Powered Portfolio
+- BookMyShow
+- StrideX
+- Villa Agency
+
+These projects cover Generative AI, Full Stack Development, Backend Engineering, E-commerce, and modern frontend development.
 
 ---
 
-### What is DropPost?
+### What is DocAnalyzer?
 
-DropPost is a social media web application inspired by modern microblogging platforms. It focuses on content creation, user interaction, and responsive user interface design.
+DocAnalyzer is an AI-powered document assistant.
 
----
+Users can upload PDF documents and ask questions about their content. The application uses Retrieval-Augmented Generation, semantic search, embeddings, ChromaDB, LangChain, and LLM-powered responses.
 
-### What is the BookMyShow Clone project?
-
-BookMyShow Clone is a frontend project that recreates the experience of a movie ticket booking platform while emphasizing responsive design and user experience.
+Status: Live
 
 ---
 
-### What is Nike Ecommerce?
+### What is the AI-Powered Portfolio?
 
-Nike Ecommerce is an ecommerce-focused web application that demonstrates product presentation, responsive design, and modern shopping interface patterns.
+The AI-Powered Portfolio is my personal developer portfolio featuring SufiQ, an AI assistant that provides contextual information about my skills, projects, education, and development journey.
+
+The project combines:
+
+- Next.js
+- TypeScript
+- FastAPI
+- LangChain
+- RAG
+- AI chatbot functionality
+
+Status: In Development
 
 ---
 
-### What is the Villa Agency Project?
+### What is the BookMyShow project?
 
-Villa Agency Project is a real estate website designed to showcase properties using a clean and professional user interface.
+BookMyShow is a full-stack movie and entertainment booking platform inspired by modern ticket-booking experiences.
+
+It includes functionality such as:
+
+- Movie discovery
+- Show scheduling
+- Theater and screen management
+- Interactive seat selection
+- Booking workflows
+- REST APIs
+- Backend data management
+
+The project uses React and TypeScript on the frontend and Django with Django REST Framework on the backend.
+
+Status: Development Project
+
+---
+
+### What is StrideX?
+
+StrideX is a full-stack e-commerce application inspired by modern sneaker shopping experiences.
+
+It focuses on:
+
+- Product discovery
+- Product filtering
+- Cart management
+- Responsive shopping interfaces
+- Full-stack application architecture
+
+The project uses Next.js, TypeScript, Tailwind CSS, Django, and Django REST Framework.
+
+Status: Development Project
+
+---
+
+### What is the Villa Agency project?
+
+Villa Agency is a responsive real estate website focused on property discovery and presentation.
+
+It demonstrates:
+
+- Responsive UI development
+- Reusable components
+- Property listing interfaces
+- Modern frontend design
+
+The project was built using React, JavaScript, and Tailwind CSS.
+
+Status: Development Project
 
 ---
 
 ### Which project are you most proud of?
 
-I am particularly proud of my AI-Powered Portfolio Assistant because it combines frontend development, backend engineering, AI integration, Retrieval-Augmented Generation (RAG), and vector databases into a complete application.
+I am particularly proud of DocAnalyzer and my AI-Powered Portfolio because they combine software engineering with Generative AI.
 
----
+DocAnalyzer demonstrates my ability to build an AI-powered application around documents, retrieval, semantic search, and LLM responses.
 
-## Artificial Intelligence
-
-### Why are you interested in AI?
-
-I am interested in AI because it enables software to become more intelligent, interactive, and capable of solving real-world problems.
-
-I enjoy building applications that combine traditional software engineering with modern AI technologies.
-
----
-
-### What AI technologies have you used?
-
-I have worked with:
-
-* LangChain
-* Gemini API
-* ChromaDB
-* Retrieval-Augmented Generation (RAG)
-* Embeddings
-* Semantic Search
-* AI Chatbots
-
----
-
-### Have you built AI applications?
-
-Yes.
-
-I have built AI-powered applications that integrate large language models, vector databases, and retrieval systems to provide intelligent and context-aware responses.
+The AI-Powered Portfolio goes a step further by integrating an AI assistant into a complete developer portfolio experience.
 
 ---
 
@@ -226,19 +337,25 @@ I have built AI-powered applications that integrate large language models, vecto
 
 ### What type of developer are you?
 
-I am a Full Stack Developer with a strong interest in Artificial Intelligence and Backend Engineering.
+I am a software developer with a Full Stack Development background and a strong focus on Generative AI and Backend Engineering.
+
+I enjoy working across the frontend, backend, and AI layers of an application.
 
 ---
 
-### What roles are you looking for?
+### What roles are you interested in?
 
-I am actively interested in:
+I am interested in opportunities involving:
 
-* Software Development Internships
-* Frontend Development Roles
-* Full Stack Development Roles
-* AI Engineering Opportunities
-* Freelance Projects
+- Software Development
+- Full Stack Development
+- Backend Engineering
+- Generative AI
+- AI Application Development
+- AI Engineering
+- Software Development Internships
+
+I am also open to suitable freelance opportunities.
 
 ---
 
@@ -246,33 +363,40 @@ I am actively interested in:
 
 Yes.
 
-I am open to freelance opportunities related to:
+I am interested in freelance projects involving:
 
-* Web Development
-* Frontend Development
-* Full Stack Development
-* API Development
-* AI Chatbot Development
+- Web Development
+- Frontend Development
+- Full Stack Development
+- Backend/API Development
+- AI Chatbots
+- AI-Powered Applications
+- Generative AI integrations
 
 ---
 
-### Why should someone hire you?
+### Why should someone work with you?
 
-I am a self-driven developer who continuously learns new technologies and applies them through real-world projects.
+I am a self-driven developer who learns by building and focuses on practical implementation.
 
 My strengths include:
 
-* Strong problem-solving mindset
-* Practical project experience
-* Full Stack Development skills
-* AI application development
-* Continuous learning and adaptability
+- Full Stack Development
+- Backend Engineering
+- AI Application Development
+- Problem Solving
+- Learning and adapting to new technologies
+- Building complete applications from frontend to backend
+
+I aim to write maintainable code and understand the systems behind the technologies I use.
 
 ---
 
 ### What is your long-term career goal?
 
-My long-term goal is to become a highly skilled Software Engineer specializing in Full Stack Development and Artificial Intelligence while building impactful products that solve meaningful problems.
+My long-term goal is to become a strong AI-focused software engineer capable of designing and building complete software products.
+
+I want to combine Full Stack Development, Backend Engineering, and Generative AI to create useful products that solve real-world problems.
 
 ---
 
@@ -280,35 +404,66 @@ My long-term goal is to become a highly skilled Software Engineer specializing i
 
 ### What technologies power this portfolio?
 
-This portfolio is built using modern frontend, backend, and AI technologies including:
+The portfolio uses technologies including:
 
-* React
-* TypeScript
-* Tailwind CSS
-* FastAPI
-* LangChain
-* ChromaDB
-* Generative AI Technologies
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- FastAPI
+- LangChain
+- RAG
+- Generative AI technologies
+
+The portfolio also includes SufiQ, an AI-powered assistant that uses contextual portfolio information to answer visitor questions.
 
 ---
 
-### Does this portfolio have an AI chatbot?
+### Does the portfolio have an AI chatbot?
 
 Yes.
 
-This portfolio includes an AI-powered assistant capable of answering questions about my background, skills, projects, and technical experience using Retrieval-Augmented Generation (RAG).
+The portfolio includes SufiQ, an AI-powered assistant designed to answer questions about my:
+
+- Background
+- Skills
+- Projects
+- Education
+- Technical experience
+- Career interests
+- Development journey
+
+---
+
+### What is SufiQ?
+
+SufiQ is my personal AI portfolio assistant.
+
+It is designed to help visitors learn about me through natural-language conversations instead of navigating through the portfolio manually.
+
+For example, visitors can ask:
+
+- "What are Sufiyan's strongest skills?"
+- "Tell me about his AI projects."
+- "What technologies does he use?"
+- "What is DocAnalyzer?"
+- "What is he currently learning?"
+- "What kind of work is he interested in?"
 
 ---
 
 ### Can visitors ask technical questions?
 
-Yes.
+Yes, within the scope of the information available to SufiQ.
 
-The AI assistant is designed to answer questions about:
+The assistant is designed primarily to answer questions about:
 
-* Skills
-* Projects
-* Technologies
-* Education
-* Career Goals
-* AI Development Experience
+- My skills
+- My projects
+- My technologies
+- My education
+- My AI experience
+- My career interests
+- My development journey
+
+SufiQ should avoid presenting unsupported information about my experience and should distinguish between technologies I have hands-on experience with and technologies I am currently learning.
