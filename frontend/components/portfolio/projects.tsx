@@ -5,16 +5,31 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, Github, ArrowUpRight } from "lucide-react"
-import Image from "next/image";
+import {
+  ExternalLink,
+  Github,
+  ArrowUpRight,
+} from "lucide-react"
+import Image from "next/image"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const projects = [
+type Project = {
+  title: string
+  description: string
+  image: string
+  tags: string[]
+  liveUrl?: string
+  githubUrl?: string
+  featured?: boolean
+  status?: "live"
+}
+
+const projects: Project[] = [
   {
     title: "DocAnalyzer",
     description:
-  "AI-powered document analysis platform leveraging RAG, LangChain, OpenAI GPT, ChromaDB, and semantic search to answer questions from uploaded PDF documents.",
+      "An AI-powered document assistant that enables users to upload PDFs and ask questions using RAG, semantic search, and LLM-powered responses.",
     image: "/projects/DocAnalyzer.png",
     tags: [
       "Python",
@@ -22,60 +37,75 @@ const projects = [
       "LangChain",
       "OpenAI",
       "ChromaDB",
-      "Streamlit",
+      "RAG",
     ],
     liveUrl: "https://analyze-doc.streamlit.app/",
     githubUrl: "https://github.com/Sufiyan0000/DocAnalyzer",
     featured: true,
+    status: "live",
   },
+
+  {
+    title: "AI-Powered Portfolio",
+    description:
+      "An interactive developer portfolio powered by SufiQ, a personal AI assistant that provides contextual insights into my projects, skills, experience, and development journey.",
+    image: "/projects/ai-powered-portfolio.png",
+    tags: [
+      "Next.js",
+      "TypeScript",
+      "FastAPI",
+      "LangChain",
+      "RAG",
+    ],
+    githubUrl: "https://github.com/Sufiyan0000/AI-Powered-Portfolio",
+    featured: true,
+  },
+
   {
     title: "BookMyShow",
     description:
-  "Full-stack movie ticket booking application featuring movie listings, seat selection, secure booking workflows, and RESTful APIs with a responsive user interface.",
+      "A full-stack movie booking platform with movie discovery, show scheduling, interactive seat selection, and end-to-end booking workflows backed by REST APIs.",
     image: "/projects/BookMyShow.png",
     tags: [
       "React",
       "TypeScript",
       "Tailwind CSS",
       "Django",
-      "REST API",
+      "DRF",
     ],
-    liveUrl: "#",
     githubUrl: "https://github.com/Sufiyan0000/BookMyShow",
-    featured: true,
   },
+
   {
-  title: "StrideX",
-  description:
-    "Full-stack Nike-inspired e-commerce application with modern UI, API integration, reusable components, and scalable architecture for a seamless shopping experience.",
-  image: "/projects/StrideX.png",
-  tags: [
-    "Next.js",
-    "Tailwind CSS",
-    "Django",
-    "Django REST Framework",
-    "Context API",
-  ],
-  liveUrl: "#",
-  githubUrl: "https://github.com/Sufiyan0000/StrideX",
-  featured: true,
-},
-{
-  title: "Villa Agency",
-  description:
-    "Modern and fully responsive real estate website featuring reusable UI components, property listings, and a clean user experience built with React and Tailwind CSS.",
-  image: "/projects/Villa.png",
-  tags: [
-    "React",
-    "Tailwind CSS",
-    "JavaScript",
-    "Responsive Design",
-  ],
-  liveUrl: "#",
-  githubUrl: "https://github.com/Sufiyan0000/Villa-Agency-Project",
-  featured: false,
-},
-];
+    title: "StrideX",
+    description:
+      "A full-stack e-commerce platform inspired by modern sneaker experiences, featuring product discovery, filtering, cart management, and a responsive shopping interface.",
+    image: "/projects/StrideX.png",
+    tags: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Django",
+      "DRF",
+    ],
+    githubUrl: "https://github.com/Sufiyan0000/StrideX",
+  },
+
+  {
+    title: "Villa Agency",
+    description:
+      "A responsive real estate experience featuring property listings, reusable UI components, and a clean, modern interface designed for intuitive property discovery.",
+    image: "/projects/Villa.png",
+    tags: [
+      "React",
+      "Tailwind CSS",
+      "JavaScript",
+      "Responsive Design",
+    ],
+    githubUrl:
+      "https://github.com/Sufiyan0000/Villa-Agency-Project",
+  },
+]
 
 export function Projects() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -84,18 +114,21 @@ export function Projects() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         ".project-card",
-        { opacity: 0, y: 60 },
+        {
+          opacity: 0,
+          y: 50,
+        },
         {
           opacity: 1,
           y: 0,
           duration: 0.8,
-          stagger: 0.15,
+          stagger: 0.12,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: ".projects-grid",
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
+            trigger: sectionRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
         }
       )
     }, sectionRef)
@@ -103,156 +136,299 @@ export function Projects() {
     return () => ctx.revert()
   }, [])
 
-  const getBentoClass = (index: number) => {
-    switch (index) {
-      case 0: 
-        return 'md:col-span-2'
-      
-      case 1:
-        return 'md:col-span-1'
-
-    case 2:
-        return 'md:col-span-1'
-
-    case 3:
-        return 'md:col-span-1'
-
-    case 4:
-        return 'md:col-span-1'
-
-    case 5:
-        return 'md:col-span-2'
-
-    default :
-        return 'md:col-span-1'
+  const getProjectUrl = (project: Project) => {
+    return project.liveUrl ?? project.githubUrl
   }
-}
+
+  const featuredProject = projects[0]
+  const secondaryProjects = projects.slice(1)
 
   return (
     <section
       ref={sectionRef}
       id="projects"
-      className="py-24 relative overflow-hidden bg-secondary/30"
+      className="relative overflow-hidden bg-secondary/30 py-24"
     >
-      {/* Subtle backgrounds */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
+      {/* Background accents */}
+      <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-          <p className="text-primary font-medium">Featured Work</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground">
-            Projects That{" "}
-            <span className="gradient-text">Define Me</span>
+      <div className="container relative z-10 mx-auto px-4">
+        {/* Section Header */}
+        <div className="mx-auto mb-16 max-w-2xl space-y-4 text-center">
+          <p className="text-sm font-medium uppercase tracking-wider text-primary">
+            Featured Work
+          </p>
+
+          <h2 className="text-4xl font-bold text-foreground md:text-5xl">
+            Featured{" "}
+            <span className="gradient-text">Projects</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
-            A selection of projects showcasing my expertise in full-stack development 
-            and AI integration.
+
+          <p className="text-lg text-muted-foreground">
+            A selection of AI and full-stack applications I&apos;ve built
+            to solve real-world problems.
           </p>
         </div>
 
-        {/* Projects Grid */}
-        <div className="projects-grid grid auto-rows-[500px] grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 lg:mx-20">
-          {projects.map((project, index) => (
-            <div
+        {/* =========================================================
+            FEATURED PROJECT — DOCANALYZER
+        ========================================================= */}
+        <article className="project-card group mb-6">
+          <div className="glass overflow-hidden rounded-3xl card-hover">
+            <div className="grid lg:grid-cols-2">
+              {/* Featured Project Image */}
+              {getProjectUrl(featuredProject) ? (
+                <a
+                  href={getProjectUrl(featuredProject)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`View ${featuredProject.title} project`}
+                  className="group/image relative block min-h-[280px] overflow-hidden bg-muted lg:min-h-[460px]"
+                >
+                  <Image
+                    src={featuredProject.image}
+                    alt={featuredProject.title}
+                    fill
+                    priority
+                    className="object-cover transition-transform duration-500 group-hover/image:scale-[1.03]"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+
+                  {/* Image Gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+
+                  {/* View Project Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover/image:opacity-100">
+                    <div className="flex items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2 text-sm font-medium shadow-lg backdrop-blur-sm">
+                      View Project
+                      <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/image:-translate-y-0.5 group-hover/image:translate-x-0.5" />
+                    </div>
+                  </div>
+
+                  {/* Project Status */}
+                  <div className="absolute left-5 top-5 flex items-center gap-2">
+                    <span className="rounded-full border border-border bg-white/90 px-3 py-1 text-xs font-medium shadow-sm backdrop-blur-sm">
+                      Featured
+                    </span>
+
+                    {featuredProject.status === "live" && (
+                      <span className="flex items-center gap-1.5 rounded-full border border-border bg-white/90 px-3 py-1 text-xs font-medium shadow-sm backdrop-blur-sm">
+                        <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                        Live
+                      </span>
+                    )}
+                  </div>
+                </a>
+              ) : (
+                <div className="relative min-h-[280px] overflow-hidden bg-muted lg:min-h-[460px]">
+                  <Image
+                    src={featuredProject.image}
+                    alt={featuredProject.title}
+                    fill
+                    priority
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
+              )}
+
+              {/* Featured Project Content */}
+              <div className="flex flex-col justify-center p-8 lg:p-10">
+                <div className="mb-5">
+                  <p className="mb-2 text-sm font-medium text-primary">
+                    AI / RAG
+                  </p>
+
+                  <h3 className="mb-4 text-3xl font-bold text-foreground">
+                    {featuredProject.title}
+                  </h3>
+
+                  <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
+                    {featuredProject.description}
+                  </p>
+                </div>
+
+                {/* Technologies */}
+                <div className="mb-8 flex flex-wrap gap-2">
+                  {featuredProject.tags.map((tag) => (
+                    <Badge
+                      key={tag}
+                      variant="secondary"
+                      className="bg-secondary/80 px-3 py-1"
+                    >
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+
+                {/* Actions */}
+                <div className="flex flex-wrap gap-2">
+                  {featuredProject.liveUrl && (
+                    <Button
+                      asChild
+                      size="sm"
+                      className="group/btn"
+                    >
+                      <a
+                        href={featuredProject.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Live Demo
+                        <ExternalLink className="ml-2 h-3.5 w-3.5 transition-transform duration-300 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
+                      </a>
+                    </Button>
+                  )}
+
+                  {featuredProject.githubUrl && (
+                    <Button
+                      asChild
+                      size="sm"
+                      variant="outline"
+                      className="group/btn border-border hover:border-primary hover:bg-primary/5"
+                    >
+                      <a
+                        href={featuredProject.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        GitHub
+                        <Github className="ml-2 h-3.5 w-3.5 transition-transform duration-300 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
+                      </a>
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        {/* =========================================================
+            SECONDARY PROJECTS
+        ========================================================= */}
+        <div className="grid gap-6 md:grid-cols-2">
+          {secondaryProjects.map((project) => (
+            <article
               key={project.title}
-              className={`project-card group relative ${getBentoClass(index) }`}
+              className="project-card group"
             >
-              <div className="glass rounded-2xl overflow-hidden h-full flex flex-col card-hover">
-                {/* Image */}
-                <div className="relative aspect-video h-[200px] md:h-auto overflow-hidden bg-muted">
-  <Image
-    src={project.image}
-    alt={project.title}
-    fill
-    className="object-cover transition-transform duration-300 group-hover:scale-105"
-    sizes="(max-width: 768px) 100vw, 50vw"
-    priority={project.featured}
-  />
+              <div className="glass flex h-full flex-col overflow-hidden rounded-2xl card-hover">
+                {/* Project Image */}
+                {getProjectUrl(project) ? (
+                  <a
+                    href={getProjectUrl(project)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`View ${project.title} project`}
+                    className="group/image relative block aspect-video overflow-hidden bg-muted"
+                  >
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover/image:scale-[1.03]"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
 
-  {/* Overlay */}
-  <div className="absolute inset-0 bg-background/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-    <Button
-      size="icon"
-      variant="outline"
-      className="rounded-full border-border hover:border-primary hover:bg-primary/10"
-      asChild
-    >
-      <a
-        href={project.liveUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <ExternalLink className="w-5 h-5" />
-        <span className="sr-only">View live demo</span>
-      </a>
-    </Button>
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center bg-background/20 opacity-0 transition-all duration-300 group-hover/image:bg-background/30 group-hover/image:opacity-100">
+                      <div className="flex items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2 text-sm font-medium shadow-lg backdrop-blur-sm">
+                        View Project
+                        <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/image:-translate-y-0.5 group-hover/image:translate-x-0.5" />
+                      </div>
+                    </div>
 
-    <Button
-      size="icon"
-      variant="outline"
-      className="rounded-full border-border hover:border-primary hover:bg-primary/10"
-      asChild
-    >
-      <a
-        href={project.githubUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Github className="w-5 h-5" />
-        <span className="sr-only">View source code</span>
-      </a>
-    </Button>
-  </div>
+                    {/* Featured Badge */}
+                    {project.featured && (
+                      <div className="absolute left-4 top-4">
+                        <span className="rounded-full border border-border bg-white/90 px-3 py-1 text-xs font-medium shadow-sm backdrop-blur-sm">
+                          Featured
+                        </span>
+                      </div>
+                    )}
+                  </a>
+                ) : (
+                  <div className="relative aspect-video overflow-hidden bg-muted">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                )}
 
-  {project.featured && (
-    <div className="absolute top-4 left-4 bg-white border border-border rounded-full px-3 py-1 text-xs font-medium shadow-sm">
-      Featured
-    </div>
-  )}
-</div>
-
-                {/* Content */}
-                <div className="p-6 flex-1 flex flex-col">
-                  <div className="flex items-start justify-between mb-3">
-                    <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+                {/* Project Content */}
+                <div className="flex flex-1 flex-col p-6">
+                  <div className="mb-4 flex items-start justify-between gap-4">
+                    <h3 className="text-xl font-semibold text-foreground transition-colors group-hover:text-primary">
                       {project.title}
                     </h3>
-                    <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+
+                    <ArrowUpRight className="h-5 w-5 shrink-0 text-muted-foreground transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
                   </div>
-                  
-                  <p className="text-muted-foreground text-sm flex-1 mb-4">
+
+                  <p className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
                     {project.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-2">
+                  {/* Technologies */}
+                  <div className="mb-6 flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
                       <Badge
                         key={tag}
                         variant="secondary"
-                        className="text-xs bg-secondary/80 hover:bg-secondary"
+                        className="bg-secondary/80 text-xs"
                       >
                         {tag}
                       </Badge>
                     ))}
                   </div>
+
+                  {/* Actions */}
+                  <div className="flex items-center gap-2">
+                    {project.liveUrl && (
+                      <Button
+                        asChild
+                        size="sm"
+                        variant="outline"
+                        className="group/btn border-border hover:border-primary hover:bg-primary/5"
+                      >
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Live Demo
+                          <ExternalLink className="ml-2 h-3.5 w-3.5 transition-transform duration-300 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
+                        </a>
+                      </Button>
+                    )}
+
+                    {project.githubUrl && (
+                      <Button
+                        asChild
+                        size="sm"
+                        variant="outline"
+                        className="group/btn border-border hover:border-primary hover:bg-primary/5"
+                      >
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          GitHub
+                          <Github className="ml-2 h-3.5 w-3.5 transition-transform duration-300 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
+                        </a>
+                      </Button>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
-        </div>
-
-        {/* View All CTA */}
-        <div className="text-center mt-12">
-          <Button
-            variant="outline"
-            size="lg"
-            className="group border-border hover:border-primary"
-          >
-            View All Projects
-            <ArrowUpRight className="w-4 h-4 ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </Button>
         </div>
       </div>
     </section>
