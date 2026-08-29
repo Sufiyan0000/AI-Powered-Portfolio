@@ -27,14 +27,14 @@ const socials = [
   {
     icon: Linkedin,
     label: "LinkedIn",
-    href: "#",
+    href: "https://www.linkedin.com/in/muhammad-sufiyan-ali-5559aa295/",
     username: "Muhammad Sufiyan Ali",
   },
   {
-    icon: Twitter,
-    label: "Twitter",
-    href: "#",
-    username: "@sufiyan0000",
+    icon: Mail,
+    label: "Email",
+    href: "mailto:alimdsufiyan89@gmail.com",
+    username: "alimdsufiyan89@gmail.com",
   },
 ];
 
