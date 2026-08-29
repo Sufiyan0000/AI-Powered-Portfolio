@@ -37,13 +37,39 @@ export function AIFab() {
   }, [isOpen])
 
   // Pulse animation for FAB
-  useEffect(() => {
-    if (!isOpen && fabRef.current) {
-      const tl = gsap.timeline({ repeat: -1, repeatDelay: 3 })
-      tl.to(fabRef.current, { scale: 1.1, duration: 0.3, ease: "power2.out" })
-        .to(fabRef.current, { scale: 1, duration: 0.3, ease: "power2.in" })
-    }
-  }, [isOpen])
+  // Pulse animation for FAB
+useEffect(() => {
+  if (!fabRef.current) return
+
+  const element = fabRef.current
+
+  if (isOpen) {
+    gsap.killTweensOf(element)
+    gsap.set(element, { scale: 1 })
+    return
+  }
+
+  const tl = gsap.timeline({
+    repeat: -1,
+    repeatDelay: 3,
+  })
+
+  tl.to(element, {
+    scale: 1.1,
+    duration: 0.3,
+    ease: "power2.out",
+  }).to(element, {
+    scale: 1,
+    duration: 0.3,
+    ease: "power2.in",
+  })
+
+  return () => {
+    tl.kill()
+    gsap.killTweensOf(element)
+    gsap.set(element, { scale: 1 })
+  }
+}, [isOpen])
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
