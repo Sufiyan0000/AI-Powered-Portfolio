@@ -13,41 +13,44 @@ const skills = [
   "React",
   "Next.js",
   "TypeScript",
+  "Tailwind CSS",
+  "REST APIs",
+  "MySQL",
+  "Amazon AWS",
   "Python",
   "Django",
   "FastAPI",
   "LangChain",
-  "LangGraph",
-  "VectorDB",
+  "RAG",
   "ChromaDB",
-];
+]
 
 const highlights = [
   {
     icon: Code2,
-    title: "Clean Code",
-    description: "Writing maintainable, scalable code following best practices",
+    title: "Clean Architecture",
+    description: "Building maintainable systems with clear structure and reusable components.",
   },
   {
     icon: Brain,
-    title: "AI Integration",
-    description: "Building intelligent features with cutting-edge ML models",
+    title: "Generative AI",
+    description: "Building practical AI features with LLMs, RAG pipelines, and intelligent workflows.",
   },
   {
     icon: Rocket,
     title: "Performance",
-    description: "Optimizing for speed and seamless user experiences",
+    description: "Focusing on fast, responsive applications and efficient user experiences.",
   },
   {
     icon: Coffee,
-    title: "Problem Solver",
-    description: "Tackling complex challenges with creative solutions",
+    title: "Problem Solving",
+    description: "Breaking complex problems into practical, scalable solutions.",
   },
 ];
 
 export function About() {
   const sectionRef = useRef<HTMLElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  // const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -100,7 +103,7 @@ export function About() {
 
       <div className="container mx-auto px-4 relative z-10">
         <div
-          ref={contentRef}
+          // ref={contentRef}
           className="grid lg:grid-cols-2 gap-16 items-center"
         >
           {/* Left - Image & Info */}
@@ -112,7 +115,6 @@ export function About() {
                   src="/profile.webp"
                   alt="Sufiyan — Full Stack & GenAI Developer"
                   fill
-                  priority
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 448px"
                 />
@@ -150,22 +152,11 @@ export function About() {
             </p>
 
             <p className="about-animate text-lg text-muted-foreground text-pretty">
-              <span className="gradient-text font-bold text-xl">
-                I build intelligent web applications
-              </span>
-              , AI chatbots, and end-to-end solutions that combine modern
-              frontend experiences with scalable backend systems. My focus is on
-              creating practical AI-powered products that deliver real value and
-              solve real-world problems.
+              I enjoy working across the stack—from creating polished interfaces with Next.js and React to building backend systems and AI workflows with FastAPI, Python, LangChain, and RAG.
             </p>
 
             <p className="about-animate text-lg text-muted-foreground text-pretty">
-              {" "}
-              <span className="gradient-text text-xl font-bold">
-                Currently exploring
-              </span>{" "}
-              advanced AI agents, LLM applications, and modern software
-              engineering practices while continuously building and learning.
+              I'm continuously expanding my knowledge of LLM applications, AI agents, and production software engineering while turning what I learn into real projects.
             </p>
 
             {/* Skills */}
