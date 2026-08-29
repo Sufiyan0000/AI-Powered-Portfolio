@@ -5,7 +5,6 @@ import { Sparkles, Github, Linkedin, Twitter, Mail, ArrowUp } from "lucide-react
 const socials = [
   { icon: Github, href: "https://github.com/Sufiyan0000", label: "GitHub" },
   { icon: Linkedin, href: "https://www.linkedin.com/in/muhammad-sufiyan-ali-5559aa295/", label: "LinkedIn" },
-  { icon: Twitter, href: "#", label: "Twitter" },
   { icon: Mail, href: "mailto:alimdsufiyan89@gmail.com", label: "Email" }
 ]
 
@@ -27,7 +26,7 @@ export function Footer() {
       {/* Subtle background */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-48 bg-primary/5 rounded-full blur-3xl" />
 
-      <div className="container mx-auto px-4 py-12 relative z-10">
+      <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="grid md:grid-cols-3 gap-8 items-center">
           {/* Logo & Description */}
           <div className="space-y-4">
@@ -40,8 +39,8 @@ export function Footer() {
               </span>
             </a>
             <p className="text-sm text-muted-foreground max-w-xs">
-              Full-stack developer crafting intelligent digital experiences with 
-              cutting-edge technology.
+              Full-stack developer building modern web applications and AI-powered
+  solutions.
             </p>
           </div>
 
@@ -86,17 +85,15 @@ export function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-12 pt-8 border-t border-border text-center">
+        <div className="mt-10 pt-8 border-t border-border text-center">
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} <span></span> 
              Sufiyan Ali. All rights reserved.
           </p>
           <p className="text-xs text-muted-foreground/60 mt-2">
-            Built with{" "}
-            <span className="gradient-text">Next.js</span>,{" "}
-            <span className="gradient-text">Tailwind</span>, and{" "}
-            <span className="gradient-text">AI</span>
-          </p>
+  Building modern web applications and{" "}
+  <span className="gradient-text">AI-powered solutions.</span>
+</p>
         </div>
       </div>
     </footer>
