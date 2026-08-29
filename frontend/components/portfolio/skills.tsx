@@ -1,17 +1,11 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react"
-import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import {
-  Brain,
-  Code2,
-  Server,
-  Wrench,
-  Sparkles,
-} from "lucide-react"
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Brain, Code2, Server, Wrench, Sparkles } from "lucide-react";
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger);
 
 const skillCategories = [
   {
@@ -61,7 +55,7 @@ const skillCategories = [
       "Pydantic",
     ],
   },
-]
+];
 
 const ecosystemTools = [
   "Git",
@@ -72,10 +66,10 @@ const ecosystemTools = [
   "MongoDB",
   "Linux",
   "CI/CD",
-]
+];
 
 export function Skills() {
-  const sectionRef = useRef<HTMLElement>(null)
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -96,8 +90,8 @@ export function Skills() {
             start: "top 80%",
             toggleActions: "play none none reverse",
           },
-        }
-      )
+        },
+      );
 
       gsap.fromTo(
         ".ecosystem-card",
@@ -115,12 +109,12 @@ export function Skills() {
             start: "top 85%",
             toggleActions: "play none none reverse",
           },
-        }
-      )
-    }, sectionRef)
+        },
+      );
+    }, sectionRef);
 
-    return () => ctx.revert()
-  }, [])
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
@@ -141,13 +135,12 @@ export function Skills() {
           </div>
 
           <h2 className="text-4xl font-bold text-foreground md:text-5xl">
-            Technologies I{" "}
-            <span className="gradient-text">Build With</span>
+            Technologies I <span className="gradient-text">Build With</span>
           </h2>
 
           <p className="text-lg text-muted-foreground">
-            A focused set of technologies I use to build intelligent,
-            scalable, and modern digital products.
+            A focused set of technologies I use to build intelligent, scalable,
+            and modern digital products.
           </p>
         </div>
 
@@ -155,40 +148,40 @@ export function Skills() {
         <div className="grid gap-8 lg:grid-cols-2">
           {/* Featured Generative AI Card */}
           {/* Featured Generative AI Card */}
-{skillCategories
-  .filter((category) => category.featured)
-  .map((category) => {
-    const Icon = category.icon
+          {skillCategories
+            .filter((category) => category.featured)
+            .map((category) => {
+              const Icon = category.icon;
 
-    return (
-      <div
-        key={category.title}
-        className="skill-category card-hover glass rounded-2xl p-8 lg:col-span-2"
-      >
-        <div className="flex flex-col gap-7">
-          {/* Category Header */}
-          <div className="flex items-start gap-4">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
-              <Icon className="h-6 w-6 text-primary" />
-            </div>
+              return (
+                <div
+                  key={category.title}
+                  className="skill-category card-hover glass rounded-2xl p-8 lg:col-span-2"
+                >
+                  <div className="flex flex-col gap-7">
+                    {/* Category Header */}
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+                        <Icon className="h-6 w-6 text-primary" />
+                      </div>
 
-            <div>
-              <h3 className="text-2xl font-semibold text-foreground">
-                {category.title}
-              </h3>
+                      <div>
+                        <h3 className="text-2xl font-semibold text-foreground">
+                          {category.title}
+                        </h3>
 
-              <p className="mt-2 text-muted-foreground">
-                {category.description}
-              </p>
-            </div>
-          </div>
+                        <p className="mt-2 text-muted-foreground">
+                          {category.description}
+                        </p>
+                      </div>
+                    </div>
 
-          {/* AI Skills */}
-          <div className="flex flex-wrap gap-3">
-            {category.skills.map((skill) => (
-              <span
-                key={skill}
-                className="
+                    {/* AI Skills */}
+                    <div className="flex flex-wrap gap-3">
+                      {category.skills.map((skill) => (
+                        <span
+                          key={skill}
+                          className="
                   rounded-full
                   border border-primary/20
                   bg-primary/10
@@ -200,21 +193,21 @@ export function Skills() {
                   hover:bg-primary
                   hover:text-primary-foreground
                 "
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    )
-  })}
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
 
           {/* Frontend + Backend */}
           {skillCategories
             .filter((category) => !category.featured)
             .map((category) => {
-              const Icon = category.icon
+              const Icon = category.icon;
 
               return (
                 <div
@@ -248,7 +241,7 @@ export function Skills() {
                     ))}
                   </div>
                 </div>
-              )
+              );
             })}
         </div>
 
@@ -281,5 +274,5 @@ export function Skills() {
         </div>
       </div>
     </section>
-  )
+  );
 }
