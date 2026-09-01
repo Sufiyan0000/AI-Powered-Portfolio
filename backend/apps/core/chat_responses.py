@@ -137,6 +137,31 @@ PREDEFINED_ANSWERS = {
         "contextual portfolio data."
     ),
 
+    "genai_readiness": (
+        "🤖 Yes. I'm actively building Generative AI applications and "
+        "have hands-on experience with RAG, LangChain, embeddings, "
+        "semantic search, ChromaDB, and LLM APIs.\n\n"
+        "🚀 I'm continuing to strengthen my skills in production-oriented "
+        "AI development by building practical applications and working "
+        "with modern AI technologies.\n\n"
+        "🎯 My goal is to grow into an AI-focused software engineer who "
+        "can design and build reliable AI-powered products."
+    ),
+
+    "scalable_web_app": (
+        "🏗️ I would start by designing the application with clear "
+        "frontend, backend, and data-layer boundaries.\n\n"
+        "⚙️ On the backend, I would focus on modular APIs, proper "
+        "validation, efficient database queries, indexing, and clean "
+        "service boundaries.\n\n"
+        "🚀 As the application grows, I would consider caching, "
+        "pagination, efficient connection management, background "
+        "processing, and monitoring where appropriate.\n\n"
+        "🧩 I would also keep the code modular and maintainable so "
+        "individual parts of the system can evolve without making the "
+        "entire application difficult to change."
+    ),
+
     # ========================================================
     # PROBLEM SOLVING
     # ========================================================
@@ -551,6 +576,174 @@ PREDEFINED_QUESTIONS = {
 
 
 # ============================================================
+# INTENT MATCHING
+# ============================================================
+#
+# Exact question matching is handled first.
+# These rules handle natural variations of common questions
+# without requiring an LLM or embedding model.
+#
+# Each rule contains:
+# - required: at least one term from each group must exist
+# - optional: terms that increase confidence
+#
+# ============================================================
+
+INTENT_RULES = {
+    "about": {
+        "required": [
+            {"who", "sufiyan"},
+            {"about", "yourself", "you"},
+        ],
+    },
+
+    "education": {
+        "required": [
+            {"education", "degree", "study", "studying", "college", "academic"},
+        ],
+    },
+
+    "skills": {
+        "required": [
+            {"skill", "skills", "technologies", "technology", "specialize"},
+        ],
+    },
+
+    "experience": {
+        "required": [
+            {"experience", "background", "worked"},
+        ],
+    },
+
+    "projects": {
+        "required": [
+            {"projects", "project", "applications", "apps"},
+            {"built", "made", "worked", "created", "developed", "work"},
+        ],
+    },
+
+    "proudest_project": {
+        "required": [
+            {"project"},
+            {"proud", "best", "favorite", "strongest"},
+        ],
+    },
+
+    "ai_experience": {
+        "required": [
+            {"ai", "artificial", "intelligence", "genai", "generative"},
+            {"experience", "worked", "used", "know"},
+        ],
+    },
+
+    "genai_projects": {
+        "required": [
+            {"ai", "genai", "generative"},
+            {"project", "projects", "application", "applications"},
+        ],
+    },
+
+    "genai_readiness": {
+        "required": [
+            {"genai", "ai", "artificial", "intelligence"},
+            {"ready", "readiness", "work", "developer", "role", "career"},
+        ],
+    },
+
+    "problem_solving": {
+        "required": [
+            {"problem", "problems"},
+            {"solve", "solving", "approach", "debug", "handle"},
+        ],
+    },
+
+    "remote_work": {
+        "required": [
+            {"remote", "remotely", "home", "wfh"},
+            {"work", "working", "opportunity", "opportunities", "job"},
+        ],
+    },
+
+    "hybrid_work": {
+        "required": [
+            {"hybrid"},
+            {"work", "working", "opportunity", "opportunities"},
+        ],
+    },
+
+    "contract_work": {
+        "required": [
+            {"contract"},
+            {"work", "working", "project", "projects", "opportunity"},
+        ],
+    },
+
+    "hourly_work": {
+        "required": [
+            {"hourly"},
+            {"work", "working", "project", "projects"},
+        ],
+    },
+
+    "monthly_work": {
+        "required": [
+            {"monthly"},
+            {"work", "working", "project", "projects", "engagement", "retainer"},
+        ],
+    },
+
+    "freelance": {
+        "required": [
+            {"freelance"},
+            {"work", "project", "projects", "client", "clients", "hire"},
+        ],
+    },
+
+    "new_projects": {
+        "required": [
+            {"project", "projects", "work", "working"},
+            {"available", "availability", "new", "looking", "hire"},
+        ],
+    },
+
+    "salary": {
+        "required": [
+            {"salary", "compensation"},
+            {"expectation", "expectations", "expected", "requirements", "demand"},
+        ],
+    },
+
+    "hourly_rate": {
+        "required": [
+            {"hourly"},
+            {"rate", "charge", "pricing", "price", "cost"},
+        ],
+    },
+
+    "career_goal": {
+        "required": [
+            {"career", "professional", "future"},
+            {"goal", "goals", "want", "become"},
+        ],
+    },
+
+    "roles": {
+        "required": [
+            {"role", "roles", "job", "jobs", "position", "positions", "opportunity"},
+            {"looking", "interested", "want", "seeking"},
+        ],
+    },
+
+    "scalable_web_app": {
+        "required": [
+            {"scalable", "scalability"},
+            {"web", "application", "app", "system"},
+        ],
+    },
+}
+
+
+# ============================================================
 # NORMALIZATION
 # ============================================================
 
@@ -581,20 +774,50 @@ def normalize_question(question: str) -> str:
     return normalized.strip()
 
 
+
+def get_intent_predefined_answer(question: str) -> str | None:
+    """
+    Match natural-language questions to predefined answer intents.
+
+    This is intentionally deterministic and does not use an LLM
+    or embedding model.
+    """
+
+    normalized_question = normalize_question(question)
+
+    # Convert question into a set of individual words.
+    words = set(normalized_question.split())
+
+    for answer_key, rule in INTENT_RULES.items():
+
+        required_groups = rule.get("required", [])
+
+        # Every required group must have at least one match.
+        if all(words.intersection(group) for group in required_groups):
+            return PREDEFINED_ANSWERS[answer_key]
+
+    return None
+
 # ============================================================
 # PREDEFINED ANSWER LOOKUP
 # ============================================================
 
 def get_predefined_answer(question: str) -> str | None:
     """
-    Return a predefined answer when the user's question
-    matches one of the known question variations.
+    Return a predefined answer using two deterministic layers:
+
+    1. Exact question variation matching.
+    2. Natural-language intent matching.
 
     Returns:
         str | None
     """
 
     normalized_question = normalize_question(question)
+
+    # --------------------------------------------------------
+    # Layer 1: Exact predefined question
+    # --------------------------------------------------------
 
     for answer_key, questions in PREDEFINED_QUESTIONS.items():
 
@@ -605,4 +828,8 @@ def get_predefined_answer(question: str) -> str | None:
             ):
                 return PREDEFINED_ANSWERS[answer_key]
 
-    return None
+    # --------------------------------------------------------
+    # Layer 2: Intent matching
+    # --------------------------------------------------------
+
+    return get_intent_predefined_answer(question)
