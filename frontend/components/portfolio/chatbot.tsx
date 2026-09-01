@@ -184,7 +184,7 @@ export function Chatbot() {
                         : "bg-secondary rounded-tl-none"
                     }`}
                   >
-                    <p className="text-sm">{message.content}</p>
+                    <p className="text-sm whitespace-pre-line">{message.content}</p>
                   </div>
                 </div>
               ))}
