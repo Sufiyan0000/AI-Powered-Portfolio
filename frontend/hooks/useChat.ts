@@ -45,7 +45,7 @@ export const useChat = () => {
 
         const response = await sendMessage({message: messageText});
 
-        console.log(response)
+        // console.log(response)
 
         const assistantMessage: ChatMessage = {
           id: crypto.randomUUID(),

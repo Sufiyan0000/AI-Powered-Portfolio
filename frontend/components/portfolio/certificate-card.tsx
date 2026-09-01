@@ -13,7 +13,7 @@ export function CertificateCard({
   onViewPdf,
 }: CertificateCardProps) {
 
-  console.log('Certificate: ', certificate)
+  
   return (
     <div className="group relative h-full overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-xl">
 
