@@ -6,7 +6,7 @@ from apps.services.chat_service import chat_service
 
 router = APIRouter()
 
-@router.post('/', response_model=ChatResponse)
+@router.post('', response_model=ChatResponse)
 def chat(request: ChatRequest):
 
     answer = chat_service.chat(
