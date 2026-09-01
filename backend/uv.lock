@@ -146,6 +146,7 @@ dependencies = [
     { name = "langchain-community" },
     { name = "langchain-google-genai" },
     { name = "langchain-huggingface" },
+    { name = "pydantic-settings" },
     { name = "sentence-transformers" },
     { name = "uvicorn" },
 ]
@@ -159,6 +160,7 @@ requires-dist = [
     { name = "langchain-community", specifier = ">=0.4.2" },
     { name = "langchain-google-genai", specifier = ">=4.2.4" },
     { name = "langchain-huggingface", specifier = ">=1.2.2" },
+    { name = "pydantic-settings", specifier = ">=2.14.1" },
     { name = "sentence-transformers", specifier = ">=5.5.1" },
     { name = "uvicorn", specifier = ">=0.48.0" },
 ]
