@@ -287,6 +287,19 @@ PREDEFINED_ANSWERS = {
         "and other opportunities where I can contribute while continuing "
         "to grow as a software engineer."
     ),
+
+    "portfolio_architecture": (
+        "🤖 The AI-Powered Portfolio is a Next.js and FastAPI-based "
+        "developer portfolio with an AI assistant called SufiQ.\n\n"
+        "🧠 SufiQ uses a combination of predefined responses and "
+        "Retrieval-Augmented Generation (RAG). Common portfolio questions "
+        "are answered instantly, while other questions can use ChromaDB "
+        "for semantic search and an LLM to generate a grounded response.\n\n"
+        "⚙️ The portfolio uses technologies including Next.js, FastAPI, "
+        "LangChain, ChromaDB, Hugging Face embeddings, and Gemini.\n\n"
+        "🎯 The goal is to make the portfolio interactive while also "
+        "demonstrating practical AI and full-stack development skills."
+),
 }
 
 
@@ -420,6 +433,16 @@ PREDEFINED_QUESTIONS = {
         "have you built generative ai applications",
         "tell me about your ai projects",
     ],
+
+    "portfolio_architecture": [
+        "How does the AI-Powered Portfolio work?",
+        "How does the AI powered portfolio work?",
+        "How does your AI portfolio work?",
+        "How does the portfolio AI work?",
+        "How did you build this AI portfolio?",
+        "Tell me about your AI portfolio",
+        "How is this AI portfolio built?",
+],
 
     # --------------------------------------------------------
     # PROBLEM SOLVING
