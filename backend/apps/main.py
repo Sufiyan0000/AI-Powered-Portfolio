@@ -34,3 +34,7 @@ app.include_router(
     prefix="/admin",
     tags=["Admin"],
 )
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
