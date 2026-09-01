@@ -615,6 +615,13 @@ INTENT_RULES = {
         ],
     },
 
+    "scalable_web_app": {
+        "required": [
+            {"scalable", "scalability"},
+            {"web", "application", "app", "system"},
+        ],
+    },
+
     "projects": {
         "required": [
             {"projects", "project", "applications", "apps"},
@@ -632,21 +639,31 @@ INTENT_RULES = {
     "ai_experience": {
         "required": [
             {"ai", "artificial", "intelligence", "genai", "generative"},
-            {"experience", "worked", "used", "know"},
+            {"experience","experienced", "worked", "used", "know", "knowledge"},
         ],
     },
 
     "genai_projects": {
         "required": [
             {"ai", "genai", "generative"},
-            {"project", "projects", "application", "applications"},
+            {"project", "projects", "application", "applications", "built", "created"},
         ],
     },
 
     "genai_readiness": {
         "required": [
             {"genai", "ai", "artificial", "intelligence"},
-            {"ready", "readiness", "work", "developer", "role", "career"},
+            {
+            "ready",
+            "readiness",
+            "developer",
+            "developers",
+            "role",
+            "roles",
+            "career",
+            "hire",
+            "hiring",
+            },
         ],
     },
 
@@ -734,12 +751,7 @@ INTENT_RULES = {
         ],
     },
 
-    "scalable_web_app": {
-        "required": [
-            {"scalable", "scalability"},
-            {"web", "application", "app", "system"},
-        ],
-    },
+    
 }
 
 
@@ -777,27 +789,53 @@ def normalize_question(question: str) -> str:
 
 def get_intent_predefined_answer(question: str) -> str | None:
     """
-    Match natural-language questions to predefined answer intents.
+    Match a natural-language question to a predefined intent.
 
-    This is intentionally deterministic and does not use an LLM
-    or embedding model.
+    Multiple intents may match a question. The most specific
+    matching intent wins based on the number of required groups
+    and matched terms.
     """
 
     normalized_question = normalize_question(question)
-
-    # Convert question into a set of individual words.
     words = set(normalized_question.split())
 
-    for answer_key, rule in INTENT_RULES.items():
+    candidates = []
 
+    for answer_key, rule in INTENT_RULES.items():
         required_groups = rule.get("required", [])
 
-        # Every required group must have at least one match.
-        if all(words.intersection(group) for group in required_groups):
-            return PREDEFINED_ANSWERS[answer_key]
+        # Every required group must contain at least one match.
+        if not all(words.intersection(group) for group in required_groups):
+            continue
 
-    return None
+        matched_terms = sum(
+            len(words.intersection(group))
+            for group in required_groups
+        )
 
+        specificity = (
+            len(required_groups) * 10
+            + matched_terms
+        )
+
+        candidates.append(
+            (
+                specificity,
+                answer_key,
+            )
+        )
+
+    if not candidates:
+        return None
+
+    candidates.sort(
+        key=lambda item: item[0],
+        reverse=True,
+    )
+
+    best_answer_key = candidates[0][1]
+
+    return PREDEFINED_ANSWERS[best_answer_key]
 # ============================================================
 # PREDEFINED ANSWER LOOKUP
 # ============================================================
